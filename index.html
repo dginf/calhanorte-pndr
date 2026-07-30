@@ -1304,9 +1304,15 @@ function rMunicipio(main){
     _detSerieCarregado=true;
     var loading=document.getElementById('loading');
     if(loading) loading.style.display='flex';
-    fetch('dados/det_serie.json').then(function(r){return r.json();})
-    .then(function(d){
-      MDET_SERIE=d;
+    Promise.all([
+      fetch('dados/det_serie_1.json').then(function(r){return r.json();}),
+      fetch('dados/det_serie_2.json').then(function(r){return r.json();})
+    ]).then(function(parts){
+      // Mesclar as duas partes em MDET_SERIE
+      MDET_SERIE={};
+      var k;
+      for(k in parts[0]) MDET_SERIE[k]=parts[0][k];
+      for(k in parts[1]) MDET_SERIE[k]=parts[1][k];
       if(loading) loading.style.display='none';
       rMunicipio(main);
     }).catch(function(err){

@@ -161,6 +161,12 @@ tr:hover td{background:#f0f5fb;}
 /* BARRA DO INDICADOR SELECIONADO */
 .ind-info{background:var(--pr);border-radius:8px;box-shadow:var(--sh);padding:10px 16px;margin-bottom:12px;font-size:16px;font-weight:600;color:#fff;}
 .ind-info span{font-size:12px;color:var(--soft);font-weight:400;}
+.btn-dl{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:6px;
+  border:1.5px solid var(--pr);color:var(--pr);background:#fff;font-size:12px;font-weight:600;
+  cursor:pointer;transition:all .15s;font-family:inherit;}
+.btn-dl:hover{background:var(--pr);color:#fff;}
+.tb-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+.tb-top .tb{margin-bottom:0;}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:960px){
   .layout{flex-direction:column;}.sb{width:100%;position:relative;max-height:none;}
@@ -491,8 +497,10 @@ function rPnad(main){
   if(selSb) selSb.value=window._pnadAnoIni;
 
   main.innerHTML=
-    '<div class="tb"><h1>Indicadores PNAD Contínua</h1>'
+    '<div class="tb-top"><div class="tb"><h1>Indicadores PNAD Contínua</h1>'
     +'<div class="sub">Indicadores de desenvolvimento regional por estrato geográfico · IBGE · 2016–2025</div></div>'
+    +btnDL('CSV','dlPnad()')+
+    '</div>'
     +'<div class="card" style="padding:12px 16px 10px;margin-bottom:12px">'
     +'<div class="desc" style="margin-bottom:8px">Cada eixo estratégico da PNDR possui um indicador complementar da PNAD Contínua. Selecione o eixo para visualizar.</div>'
     +IND_PNAD_HTML+'</div>'
@@ -657,6 +665,123 @@ function buildMap(containerId,ind,ano){
   }
 }
 
+
+
+function downloadCSV(filename, rows){
+  var csv = rows.map(function(r){
+    return r.map(function(c){
+      if(c==null) return '';
+      var s = String(c);
+      if(s.indexOf(',')>=0||s.indexOf('"')>=0||s.indexOf('\n')>=0)
+        s='"'+s.replace(/"/g,'""')+'"';
+      return s;
+    }).join(',');
+  }).join('\n');
+  var bom = '\uFEFF'; // BOM para Excel reconhecer UTF-8
+  var blob = new Blob([bom+csv], {type:'text/csv;charset=utf-8;'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href=url; a.download=filename; a.click();
+  setTimeout(function(){URL.revokeObjectURL(url);}, 1000);
+}
+
+function btnDL(label, fn){
+  return '<button class="btn-dl" onclick="'+fn+'">⬇ '+label+'</button>';
+}
+
+// ── Download: Evolução (Eixos e Objetivos) ────────────────────────────────────
+function dlEvolucao(){
+  var m = META[S.ind]||{};
+  var nm = (m.nm||'Indicador').trim();
+  var serie = getSerie(S.ind);
+  var rows = [['Região/UF','Ano','Valor',nm.substring(0,30)]];
+  serie.filter(function(d){return d.a>=S.ini&&d.a<=S.fim;})
+    .sort(function(a,b){return a.rg<b.rg?-1:a.rg>b.rg?1:a.a-b.a;})
+    .forEach(function(d){rows.push([d.rg, d.a, d.v!=null?d.v.toFixed(4):'']);});
+  // Se abrangência ativa, adicionar série de abrangência
+  if(temAbrang()){
+    var serAbr = serieAbrang(S.ind);
+    serAbr.forEach(function(d){rows.push(['Abrangência selecionada', d.a, d.v!=null?d.v.toFixed(4):'']);});
+  }
+  downloadCSV('PNDR_'+nm.replace(/[^a-zA-Z0-9]/g,'_').substring(0,30)+'_'+S.ini+'_'+S.fim+'.csv', rows);
+}
+
+// ── Download: Tipologia ───────────────────────────────────────────────────────
+function dlTipologia(){
+  var m = META[S.ind]||{};
+  var nm = (m.nm||'Indicador').trim();
+  var tps=['Alta Renda e Alto Dinamismo','Alta Renda e Médio Dinamismo','Alta Renda e Baixo Dinamismo',
+    'Média Renda e Alto Dinamismo','Média Renda e Médio Dinamismo','Média Renda e Baixo Dinamismo',
+    'Baixa Renda e Alto Dinamismo','Baixa Renda e Médio Dinamismo','Baixa Renda e Baixo Dinamismo'];
+  var sid = String(S.ind);
+  var rows = [['Tipologia PNDR','Valor Médio',nm.substring(0,30)]];
+  tps.forEach(function(tp){
+    var v;
+    if(temAbrang()){
+      var mf=munFilt().filter(function(m){return m.tp===tp&&m.d[sid]!=null;});
+      v=mf.length?parseFloat((mf.reduce(function(s,m){return s+m.d[sid];},0)/mf.length).toFixed(4)):null;
+    } else {
+      var rows2=DB.tipologia.filter(function(d){return d.mdata_id===S.ind&&d.tp===tp;});
+      v=rows2.length?parseFloat((rows2.reduce(function(s,d){return s+d.v;},0)/rows2.length).toFixed(4)):null;
+    }
+    rows.push([tp, v!=null?v:'']);
+  });
+  downloadCSV('PNDR_Tipologia_'+nm.replace(/[^a-zA-Z0-9]/g,'_').substring(0,25)+'.csv', rows);
+}
+
+// ── Download: Análise Municipal ───────────────────────────────────────────────
+function dlMunicipal(){
+  var compostos = COMP_OBJ.concat(COMP_EIXOS);
+  var header = ['Município','UF','Tipologia','IBGE'].concat(
+    compostos.map(function(id){var m=META[id];return m?(m.nm||'').trim().substring(0,20):'Ind'+id;})
+  );
+  var rows = [header];
+  munFilt().forEach(function(m){
+    var linha = [m.n, m.u, m.tp, m.i].concat(
+      compostos.map(function(id){var v=m.d[String(id)];return v!=null?v.toFixed(4):'';})
+    );
+    rows.push(linha);
+  });
+  downloadCSV('PNDR_Municipal_2024.csv', rows);
+}
+
+// ── Download: Comparativo ─────────────────────────────────────────────────────
+function dlComparativo(){
+  var compostos = COMP_EIXOS.concat(COMP_OBJ);
+  var header = ['Região'].concat(
+    compostos.map(function(id){var m=META[id];return m?(m.nm||'').trim().substring(0,20):'Ind'+id;})
+  );
+  var rows = [header];
+  var REGIOES=['Norte','Nordeste','Centro-Oeste','Sudeste','Sul'];
+  REGIOES.forEach(function(rg){
+    var linha=[rg].concat(compostos.map(function(id){
+      var r=DB.serie.find(function(d){return d.mdata_id===id&&d.rg===rg&&d.a===S.fim;});
+      return r?r.v.toFixed(4):'';
+    }));
+    rows.push(linha);
+  });
+  downloadCSV('PNDR_Comparativo_'+S.fim+'.csv', rows);
+}
+
+// ── Download: PNAD ────────────────────────────────────────────────────────────
+function dlPnad(){
+  var eixo = window._pnadEixo||1;
+  var p = PNAD[String(eixo)];
+  if(!p) return;
+  var REGIOES=['Norte','Nordeste','Centro-Oeste','Sudeste','Sul','Brasil'];
+  var anos = Object.keys(p.brasil).map(Number).sort(function(a,b){return a-b;})
+    .filter(function(a){return a>=(window._pnadAnoIni||2016);});
+  var header = ['Ano'].concat(REGIOES);
+  var rows = [header];
+  anos.forEach(function(a){
+    var linha=[a].concat(REGIOES.map(function(rg){
+      var v=rg==='Brasil'?p.brasil[String(a)]:(p.serie[rg]||{})[String(a)];
+      return v!=null?v.toFixed(3):'';
+    }));
+    rows.push(linha);
+  });
+  downloadCSV('PNDR_PNAD_Eixo'+eixo+'_'+p.nm.replace(/[^a-zA-Z0-9]/g,'_').substring(0,20)+'.csv', rows);
+}
 
 function buildSB(){
   var sa=document.getElementById('f-ano'),si=document.getElementById('f-ini'),sf=document.getElementById('f-fim');
@@ -942,7 +1067,7 @@ function renderGraficosEixo(){renderGraficosComuns();buildSubChart(EIXO_GRUPOS,'
 function estrutura(titulo, kpiGridHtml, indPanelHtml){
   var abNote=temAbrang()?'<span style="background:#e3edf9;color:var(--pr);border-radius:12px;padding:2px 10px;font-size:10.5px;font-weight:600;margin-left:8px">▼ Abrangência ativa</span>':'';
   return (
-    '<div class="tb"><h1>'+titulo+abNote+'</h1><div class="sub">'+S.ini+'–'+S.fim+'</div></div>'+
+    '<div class="tb-top"><div class="tb"><h1>'+titulo+abNote+'</h1><div class="sub">'+S.ini+'–'+S.fim+'</div></div>'+btnDL('CSV','dlEvolucao()')+'</div>'+
     '<div class="card" style="padding:12px 16px 8px"><div class="desc" style="margin-bottom:6px">Último valor disponível · clique num card para selecionar o indicador</div>'+
     '<div class="kg4">'+kpiGridHtml+'</div></div>'+
     indPanelHtml+
@@ -1053,7 +1178,9 @@ function rTipologia(main){
   }).join('');
   var abNote=temAbrang()?'<span style="background:#e3edf9;color:var(--pr);border-radius:12px;padding:2px 10px;font-size:10.5px;font-weight:600;margin-left:8px">▼ Abrangência ativa</span>':'';
   main.innerHTML=
-    '<div class="tb"><h1>Por Tipologia PNDR'+abNote+'</h1><div class="sub">2024'+(temAbrang()?' · abrangência ativa':'')+'</div></div>'+
+    '<div class="tb-top"><div class="tb"><h1>Por Tipologia PNDR'+abNote+'</h1><div class="sub">2024'+(temAbrang()?' · abrangência ativa':'')+'</div></div>'+
+    btnDL('CSV','dlTipologia()')+
+    '</div>'+
     '<div class="card" style="padding:12px 16px 8px"><div class="desc" style="margin-bottom:6px">Selecione o indicador</div>'+
     '<div class="kg4">'+kpis+'</div></div>'+
     '<div id="ind-info-bar" class="ind-info"></div>'+
@@ -1078,7 +1205,7 @@ function rMunicipio(main){
   var mSel=S.munSel?MUNS.find(function(m){return m.i===S.munSel;}):null;
   if(!mSel){
     var tabRows=munFilt().filter(function(m){return !S.munBusca||m.n.toLowerCase().indexOf(S.munBusca)>=0;}).slice(0,40).map(function(m){return '<tr style="cursor:pointer" onclick="S.munSel='+m.i+';renderML();render()"><td><b>'+m.n+'</b></td><td>'+m.u+'</td><td style="font-size:10.5px">'+m.tp+'</td><td>'+(m.d['62']!=null?m.d['62'].toFixed(3):'—')+'</td><td>'+(m.d['63']!=null?m.d['63'].toFixed(3):'—')+'</td><td>'+(m.d['5']!=null?m.d['5'].toFixed(3):'—')+'</td><td>'+(m.d['25']!=null?m.d['25'].toFixed(3):'—')+'</td><td>'+(m.d['20']!=null?m.d['20'].toFixed(3):'—')+'</td></tr>';}).join('');
-    main.innerHTML='<div class="tb"><h1>Análise Municipal</h1><div class="sub">Índices compostos · 2024 · amostra 500 municípios</div></div><div class="card" style="text-align:center;padding:22px"><div style="font-size:36px;margin-bottom:8px">🏙️</div><div style="font-size:14px;font-weight:600">Selecione um município na barra lateral</div></div><div class="card"><h2>Municípios no recorte · compostos 2024</h2><div class="desc">Clique numa linha para ver o detalhe</div><div style="overflow-x:auto"><table><thead><tr><th>Município</th><th>UF</th><th>Tipologia</th><th>Obj.1</th><th>Obj.2</th><th>Educação</th><th>Des.Social</th><th>Infraestrutura</th></tr></thead><tbody>'+tabRows+'</tbody></table></div></div>';
+    main.innerHTML='<div class="tb-top"><div class="tb"><h1>Análise Municipal</h1><div class="sub">Índices compostos · 2024 · '+MUNS.length+' municípios</div></div>'+btnDL('CSV','dlMunicipal()')+'</div>'+'<div class="card" style="text-align:center;padding:22px"><div style="font-size:36px;margin-bottom:8px">🏙️</div><div style="font-size:14px;font-weight:600">Selecione um município na barra lateral</div></div><div class="card"><h2>Municípios no recorte · compostos 2024</h2><div class="desc">Clique numa linha para ver o detalhe</div><div style="overflow-x:auto"><table><thead><tr><th>Município</th><th>UF</th><th>Tipologia</th><th>Obj.1</th><th>Obj.2</th><th>Educação</th><th>Des.Social</th><th>Infraestrutura</th></tr></thead><tbody>'+tabRows+'</tbody></table></div></div>';
     return;
   }
   var det={};
@@ -1131,7 +1258,9 @@ function rComparativo(main){
   }
   var abNote=temFiltro?'<span style="background:#e3edf9;color:var(--pr);border-radius:12px;padding:2px 10px;font-size:10.5px;font-weight:600;margin-left:8px">▼ Filtros ativos</span>':'';
   main.innerHTML=
-    '<div class="tb"><h1>Comparativo Geral'+abNote+'</h1><div class="sub">Todos os índices compostos · '+S.fim+'</div></div>'+
+    '<div class="tb-top"><div class="tb"><h1>Comparativo Geral'+abNote+'</h1><div class="sub">Todos os índices compostos · '+S.fim+'</div></div>'+
+btnDL('CSV','dlComparativo()')+
+'</div>'+
     '<div class="card"><h2>Radar — Eixos por Região</h2><div class="desc">7 eixos · '+S.fim+'</div><div style="height:340px"><canvas id="cre"></canvas></div></div>'+
     '<div class="g2"><div class="card"><h2>Radar — Objetivos</h2><div class="desc">4 Objetivos · '+S.fim+'</div><div style="height:260px"><canvas id="cro"></canvas></div></div>'+
     '<div class="card"><h2>Ranking</h2><div class="desc">Média '+(temFiltro?'do recorte':'nacional')+' · '+S.fim+'</div><div style="height:260px"><canvas id="crk"></canvas></div></div></div>';

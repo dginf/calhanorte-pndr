@@ -687,9 +687,10 @@ function downloadXLSX(filename, rows, sheetName){
 }
 
 function btnDL(label, fnCSV, fnXLSX){
+  var hasXLSX = typeof fnXLSX !== "undefined" && fnXLSX;
   return '<div style="display:flex;gap:6px;flex-shrink:0">'
     +'<button class="btn-dl" onclick="'+fnCSV+'">⬇ CSV</button>'
-    +'<button class="btn-dl" onclick="'+fnXLSX+'">⬇ XLSX</button>'
+    +(hasXLSX ? '<button class="btn-dl" onclick="'+fnXLSX+'">⬇ XLSX</button>' : '')
     +'</div>';
 }
 
@@ -711,9 +712,6 @@ function downloadCSV(filename, rows){
   setTimeout(function(){URL.revokeObjectURL(url);}, 1000);
 }
 
-function btnDL(label, fn){
-  return '<button class="btn-dl" onclick="'+fn+'">⬇ '+label+'</button>';
-}
 
 // ── Download: Evolução (Eixos e Objetivos) ────────────────────────────────────
 function dlEvolucao(){

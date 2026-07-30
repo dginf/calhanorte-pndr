@@ -261,6 +261,16 @@ function carregarDados(){
     PATHS=geo.paths;
     MUN_XY=geo.xy;
     if(loading) loading.style.display='none';
+    // Recalcular META, ANOS, ANO_MIN, ANO_MAX com dados reais
+    META={};
+    if(DB.meta) for(var _j=0;_j<DB.meta.length;_j++) META[DB.meta[_j].id]=DB.meta[_j];
+    ANOS=[];
+    var _aSet={};
+    if(DB.serie) for(var _k=0;_k<DB.serie.length;_k++){if(!_aSet[DB.serie[_k].a]){_aSet[DB.serie[_k].a]=1;ANOS.push(DB.serie[_k].a);}}
+    ANOS.sort(function(a,b){return a-b;});
+    ANO_MIN=ANOS[0]||2013;
+    ANO_MAX=ANOS[ANOS.length-1]||2024;
+    S.ini=ANO_MIN; S.fim=ANO_MAX; S.ano=ANO_MAX;
     buildSB();
     buildNav();
     toggleSB();
@@ -283,13 +293,8 @@ var OBJ_GRUPOS = [[43,44,45,62],[46,47,48,63],[49,50,51,64],[52,53,54,65]];
 var EIXO_GRUPOS = [[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15],[16,17,18,19,20],[21,22,23,24,25],[31,32,33,34,35],[26,27,28,29,30]];
 
 var META = {};
-for (var i=0;i<DB.meta.length;i++) META[DB.meta[i].id]=DB.meta[i];
-
 var ANOS = [];
-var aSet = {};
-for (var i=0;i<DB.serie.length;i++){if(!aSet[DB.serie[i].a]){aSet[DB.serie[i].a]=1;ANOS.push(DB.serie[i].a);}}
-ANOS.sort(function(a,b){return a-b;});
-var ANO_MIN=ANOS[0],ANO_MAX=ANOS[ANOS.length-1];
+var ANO_MIN=2013,ANO_MAX=2024;
 
 var S={view:'principal',rg:'all',uf:'all',tip:'all',ab:{sd:'all',sm:'all',az:'all',ff:'all',mt:'all',aa:'all',ro:'all',su:'all',ci:'all'},ind:62,ano:ANO_MAX,ini:ANO_MIN,fim:ANO_MAX,munSel:null,munBusca:''};
 var charts={};

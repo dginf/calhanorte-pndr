@@ -242,7 +242,7 @@ tr:hover td{background:#f0f5fb;}
 <script type="text/plain" id="d-ind-eixo"><div class="ind-panel"><div class="ind-panel-title">Selecione o indicador<\/div><div class="ind-grupo-row"><div class="ind-grupo-label">Eixo 1<br><span style="font-weight:400;color:var(--soft);font-size:10px">Educação e Cap. Profissional<\/span><\/div><div class="ind-grupo-tags"><div class="itag comp" data-id="5">⊕ Composto<\/div><div class="itag" data-id="1" title="% escolas com esgotamento sanitário">% escolas com esgotamento sanitário<\/div><div class="itag" data-id="2" title="% escolas com internet">% escolas com internet<\/div><div class="itag" data-id="3" title="Adequação da Formação Docente">Adequação da Formação Docente<\/div><div class="itag" data-id="4" title="IDEB">IDEB<\/div><\/div><\/div><div class="ind-grupo-row"><div class="ind-grupo-label">Eixo 2<br><span style="font-weight:400;color:var(--soft);font-size:10px">C&T e Inovação<\/span><\/div><div class="ind-grupo-tags"><div class="itag comp" data-id="10">⊕ Composto<\/div><div class="itag" data-id="6" title="MPE Biotecnologia/Saúde por mi hab.">MPE Biotecnologia/Saúde por mi hab.<\/div><div class="itag" data-id="7" title="Empregos Des. Científico por mi hab.">Empregos Des. Científico por mi hab.<\/div><div class="itag" data-id="8" title="Empregos Estab. Científico por mi hab.">Empregos Estab. Científico por mi hab.<\/div><div class="itag" data-id="9" title="Patentes por 100 mil hab.">Patentes por 100 mil hab.<\/div><\/div><\/div><div class="ind-grupo-row"><div class="ind-grupo-label">Eixo 3<br><span style="font-weight:400;color:var(--soft);font-size:10px">Desenvolvimento Produtivo<\/span><\/div><div class="ind-grupo-tags"><div class="itag comp" data-id="15">⊕ Composto<\/div><div class="itag" data-id="11" title="Complexidade Econômica">Complexidade Econômica<\/div><div class="itag" data-id="12" title="% industrial emprego formal">% industrial emprego formal<\/div><div class="itag" data-id="13" title="Salário médio mercado formal">Salário médio mercado formal<\/div><div class="itag" data-id="14" title="Escala produtiva">Escala produtiva<\/div><\/div><\/div><div class="ind-grupo-row"><div class="ind-grupo-label">Eixo 4<br><span style="font-weight:400;color:var(--soft);font-size:10px">Infraestrutura<\/span><\/div><div class="ind-grupo-tags"><div class="itag comp" data-id="20">⊕ Composto<\/div><div class="itag" data-id="16" title="Atend. Urbano de Água (IN023)">Atend. Urbano de Água (IN023)<\/div><div class="itag" data-id="17" title="% Internet Alta Velocidade">% Internet Alta Velocidade<\/div><div class="itag" data-id="18" title="Internações DRSAI por 10 mil hab.">Internações DRSAI por 10 mil hab.<\/div><div class="itag" data-id="19" title="Despesas habitação e recup. per capita">Despesas habitação e recup. per capita<\/div><\/div><\/div><div class="ind-grupo-row"><div class="ind-grupo-label">Eixo 5<br><span style="font-weight:400;color:var(--soft);font-size:10px">Desenvolvimento Social<\/span><\/div><div class="ind-grupo-tags"><div class="itag comp" data-id="25">⊕ Composto<\/div><div class="itag" data-id="21" title="Desnutrição">Desnutrição<\/div><div class="itag" data-id="22" title="% Baixa Renda no CadÚnico">% Baixa Renda no CadÚnico<\/div><div class="itag" data-id="23" title="Distorção Idade-Série">Distorção Idade-Série<\/div><div class="itag" data-id="24" title="Dif. Salarial Médio Feminino">Dif. Salarial Médio Feminino<\/div><\/div><\/div><div class="ind-grupo-row"><div class="ind-grupo-label">Eixo 6<br><span style="font-weight:400;color:var(--soft);font-size:10px">Capacidades Governativas<\/span><\/div><div class="ind-grupo-tags"><div class="itag comp" data-id="35">⊕ Composto<\/div><div class="itag" data-id="31" title="% dirigentes c/ ensino superior">% dirigentes c/ ensino superior<\/div><div class="itag" data-id="32" title="% servidores c/ ensino superior">% servidores c/ ensino superior<\/div><div class="itag" data-id="33" title="Salário médio serv. públicos">Salário médio serv. públicos<\/div><div class="itag" data-id="34" title="Sustentabilidade Fiscal">Sustentabilidade Fiscal<\/div><\/div><\/div><div class="ind-grupo-row"><div class="ind-grupo-label">Eixo 7<br><span style="font-weight:400;color:var(--soft);font-size:10px">Sustentabilidade<\/span><\/div><div class="ind-grupo-tags"><div class="itag comp" data-id="30">⊕ Composto<\/div><div class="itag" data-id="26" title="Empregos Reciclagem e Resíduos">Empregos Reciclagem e Resíduos<\/div><div class="itag" data-id="27" title="% Área Desmatada">% Área Desmatada<\/div><div class="itag" data-id="28" title="Taxa Desmatamento (km²/ano)">Taxa Desmatamento (km²/ano)<\/div><div class="itag" data-id="29" title="Emissões GEE Agropecuária">Emissões GEE Agropecuária<\/div><\/div><\/div><\/div></script>
 <script>
 
-// ── Variáveis globais — preenchidas via fetch ────────────────────────────
+
 var DB={serie:[],tipologia:[],estados:[],recortes:[],meta:{}};
 var MUNS=[],MDET={},MDET_SERIE={},PERC={},NR={},PNAD={},PATHS={},MUN_XY={};
 var _detSerieCarregado=false;
@@ -273,7 +273,7 @@ function carregarDados(){
     PATHS=geo.paths;
     MUN_XY=geo.xy;
     if(loading) loading.style.display='none';
-    // Recalcular META, ANOS, ANO_MIN, ANO_MAX com dados reais
+    
     META={};
     if(DB.meta) for(var _j=0;_j<DB.meta.length;_j++) META[DB.meta[_j].id]=DB.meta[_j];
     ANOS=[];
@@ -288,14 +288,28 @@ function carregarDados(){
     toggleSB();
     render();
   }).catch(function(err){
-    var msg='Erro ao carregar os dados: '+err.message+'<br><small>Verifique se a pasta dados/ está no mesmo diretório que o index.html.</small>';
+    var msg='Erro ao carregar os dados: '+err.message+'<br><small>Abra o console (F12) para ver qual arquivo falhou.</small>';
     if(loading) loading.innerHTML='<div style="color:#c0392b;padding:20px;font-size:14px;">'+msg+'</div>';
     console.error('Erro fetch:',err);
   });
 }
+// Verificar individualmente cada arquivo para diagnóstico
+function testarArquivos(){
+  var BASE='dados/';
+  var arqs=['db.json','municipios.json','det.json','perc.json','nr.json','pnad.json','geo.json'];
+  arqs.forEach(function(a){
+    fetch(BASE+a).then(function(r){
+      if(!r.ok) console.error('HTTP '+r.status+': '+BASE+a);
+      else return r.text().then(function(t){
+        try{JSON.parse(t);console.log('OK ('+Math.round(t.length/1024)+'KB): '+BASE+a);}
+        catch(e){console.error('JSON INVALIDO: '+BASE+a+' | '+t.substring(0,100));}
+      });
+    }).catch(function(e){console.error('FETCH FALHOU: '+BASE+a+' | '+e.message);});
+  });
+}
 var IND_OBJ_HTML = "<div class=\"ind-panel\"><div class=\"ind-panel-title\">Selecione o indicador</div><div class=\"ind-grupo-row\"><div class=\"ind-grupo-label\">Objetivo 1<br><span style=\"font-weight:400;color:var(--soft);font-size:10px\">Convergência e Equidade</span></div><div class=\"ind-grupo-tags\"><div class=\"itag comp\" data-id=\"62\">⊕ Composto</div><div class=\"itag\" data-id=\"43\" title=\"Dif. Salário Médio vs Mediana Nacional\">Dif. Salário Médio vs Mediana Nacional</div><div class=\"itag\" data-id=\"44\" title=\"Dif. IDEB vs Mediana Nacional\">Dif. IDEB vs Mediana Nacional</div><div class=\"itag\" data-id=\"45\" title=\"Dif. Médicos/Hab vs Mediana Nacional\">Dif. Médicos/Hab vs Mediana Nacional</div></div></div><div class=\"ind-grupo-row\"><div class=\"ind-grupo-label\">Objetivo 2<br><span style=\"font-weight:400;color:var(--soft);font-size:10px\">Rede Policêntrica de Cidades</span></div><div class=\"ind-grupo-tags\"><div class=\"itag comp\" data-id=\"63\">⊕ Composto</div><div class=\"itag\" data-id=\"46\" title=\"Índice de Centralidade\">Índice de Centralidade</div><div class=\"itag\" data-id=\"47\" title=\"Razão de Primazia Populacional Estadual\">Razão de Primazia Populacional Estadual</div><div class=\"itag\" data-id=\"48\" title=\"Razão de Primazia Econômica Estadual\">Razão de Primazia Econômica Estadual</div></div></div><div class=\"ind-grupo-row\"><div class=\"ind-grupo-label\">Objetivo 3<br><span style=\"font-weight:400;color:var(--soft);font-size:10px\">Produtividade e Competitividade</span></div><div class=\"ind-grupo-tags\"><div class=\"itag comp\" data-id=\"64\">⊕ Composto</div><div class=\"itag\" data-id=\"49\" title=\"% vínculos formais com ensino superior\">% vínculos formais com ensino superior</div><div class=\"itag\" data-id=\"50\" title=\"Salário Médio no Mercado Formal\">Salário Médio no Mercado Formal</div><div class=\"itag\" data-id=\"51\" title=\"Taxa de Variação Populacional\">Taxa de Variação Populacional</div></div></div><div class=\"ind-grupo-row\"><div class=\"ind-grupo-label\">Objetivo 4<br><span style=\"font-weight:400;color:var(--soft);font-size:10px\">Diversificação Econômica</span></div><div class=\"ind-grupo-tags\"><div class=\"itag comp\" data-id=\"65\">⊕ Composto</div><div class=\"itag\" data-id=\"52\" title=\"Especialização em Atividades Agrícolas\">Especialização em Atividades Agrícolas</div><div class=\"itag\" data-id=\"53\" title=\"Especialização em Mineração\">Especialização em Mineração</div><div class=\"itag\" data-id=\"54\" title=\"Coeficiente de Diversificação Econômica\">Coeficiente de Diversificação Econômica</div></div></div></div>";
 var IND_EIXO_HTML = "<div class=\"ind-panel\"><div class=\"ind-panel-title\">Selecione o indicador</div><div class=\"ind-grupo-row\"><div class=\"ind-grupo-label\">Eixo 1<br><span style=\"font-weight:400;color:var(--soft);font-size:10px\">Educação e Cap. Profissional</span></div><div class=\"ind-grupo-tags\"><div class=\"itag comp\" data-id=\"5\" data-eixo=\"1\">⊕ Composto</div><div class=\"itag\" data-id=\"1\" data-eixo=\"1\" title=\"% escolas c/ esgotamento sanitário\">% escolas c/ esgotamento sanitário</div><div class=\"itag\" data-id=\"2\" data-eixo=\"1\" title=\"% escolas c/ acesso à internet\">% escolas c/ acesso à internet</div><div class=\"itag\" data-id=\"3\" data-eixo=\"1\" title=\"Adequação da Formação Docente\">Adequação da Formação Docente</div><div class=\"itag\" data-id=\"4\" data-eixo=\"1\" title=\"IDEB\">IDEB</div></div></div><div class=\"ind-grupo-row\"><div class=\"ind-grupo-label\">Eixo 2<br><span style=\"font-weight:400;color:var(--soft);font-size:10px\">C&T e Inovação</span></div><div class=\"ind-grupo-tags\"><div class=\"itag comp\" data-id=\"10\" data-eixo=\"2\">⊕ Composto</div><div class=\"itag\" data-id=\"6\" data-eixo=\"2\" title=\"MPE Biotecnologia/Saúde por mi hab.\">MPE Biotecnologia/Saúde por mi hab.</div><div class=\"itag\" data-id=\"7\" data-eixo=\"2\" title=\"Empregos Des. Científico por mi hab.\">Empregos Des. Científico por mi hab.</div><div class=\"itag\" data-id=\"8\" data-eixo=\"2\" title=\"Empregos Estab. Científico por mi hab.\">Empregos Estab. Científico por mi hab.</div><div class=\"itag\" data-id=\"9\" data-eixo=\"2\" title=\"Patentes por 100 mil hab.\">Patentes por 100 mil hab.</div></div></div><div class=\"ind-grupo-row\"><div class=\"ind-grupo-label\">Eixo 3<br><span style=\"font-weight:400;color:var(--soft);font-size:10px\">Desenvolvimento Produtivo</span></div><div class=\"ind-grupo-tags\"><div class=\"itag comp\" data-id=\"15\" data-eixo=\"3\">⊕ Composto</div><div class=\"itag\" data-id=\"11\" data-eixo=\"3\" title=\"Complexidade Econômica\">Complexidade Econômica</div><div class=\"itag\" data-id=\"12\" data-eixo=\"3\" title=\"% industrial emprego formal\">% industrial emprego formal</div><div class=\"itag\" data-id=\"13\" data-eixo=\"3\" title=\"Salário médio mercado formal\">Salário médio mercado formal</div><div class=\"itag\" data-id=\"14\" data-eixo=\"3\" title=\"Escala produtiva\">Escala produtiva</div></div></div><div class=\"ind-grupo-row\"><div class=\"ind-grupo-label\">Eixo 4<br><span style=\"font-weight:400;color:var(--soft);font-size:10px\">Infraestrutura</span></div><div class=\"ind-grupo-tags\"><div class=\"itag comp\" data-id=\"20\" data-eixo=\"4\">⊕ Composto</div><div class=\"itag\" data-id=\"16\" data-eixo=\"4\" title=\"Atend. Água (IN023)\">Atend. Água (IN023)</div><div class=\"itag\" data-id=\"17\" data-eixo=\"4\" title=\"% Internet Alta Velocidade\">% Internet Alta Velocidade</div><div class=\"itag\" data-id=\"18\" data-eixo=\"4\" title=\"Internações DRSAI por 10 mil hab.\">Internações DRSAI por 10 mil hab.</div><div class=\"itag\" data-id=\"19\" data-eixo=\"4\" title=\"Despesas habitação per capita\">Despesas habitação per capita</div></div></div><div class=\"ind-grupo-row\"><div class=\"ind-grupo-label\">Eixo 5<br><span style=\"font-weight:400;color:var(--soft);font-size:10px\">Desenvolvimento Social</span></div><div class=\"ind-grupo-tags\"><div class=\"itag comp\" data-id=\"25\" data-eixo=\"5\">⊕ Composto</div><div class=\"itag\" data-id=\"21\" data-eixo=\"5\" title=\"Desnutrição\">Desnutrição</div><div class=\"itag\" data-id=\"22\" data-eixo=\"5\" title=\"% Baixa Renda no CadÚnico\">% Baixa Renda no CadÚnico</div><div class=\"itag\" data-id=\"23\" data-eixo=\"5\" title=\"Distorção Idade-Série\">Distorção Idade-Série</div><div class=\"itag\" data-id=\"24\" data-eixo=\"5\" title=\"Dif. Salarial Médio Feminino\">Dif. Salarial Médio Feminino</div></div></div><div class=\"ind-grupo-row\"><div class=\"ind-grupo-label\">Eixo 6<br><span style=\"font-weight:400;color:var(--soft);font-size:10px\">Capacidades Governativas</span></div><div class=\"ind-grupo-tags\"><div class=\"itag comp\" data-id=\"35\" data-eixo=\"6\">⊕ Composto</div><div class=\"itag\" data-id=\"31\" data-eixo=\"6\" title=\"% dirigentes c/ ensino superior\">% dirigentes c/ ensino superior</div><div class=\"itag\" data-id=\"32\" data-eixo=\"6\" title=\"% servidores c/ ensino superior\">% servidores c/ ensino superior</div><div class=\"itag\" data-id=\"33\" data-eixo=\"6\" title=\"Salário médio serv. públicos\">Salário médio serv. públicos</div><div class=\"itag\" data-id=\"34\" data-eixo=\"6\" title=\"Sustentabilidade Fiscal\">Sustentabilidade Fiscal</div></div></div><div class=\"ind-grupo-row\"><div class=\"ind-grupo-label\">Eixo 7<br><span style=\"font-weight:400;color:var(--soft);font-size:10px\">Sustentabilidade</span></div><div class=\"ind-grupo-tags\"><div class=\"itag comp\" data-id=\"30\" data-eixo=\"7\">⊕ Composto</div><div class=\"itag\" data-id=\"26\" data-eixo=\"7\" title=\"Empregos Reciclagem e Resíduos\">Empregos Reciclagem e Resíduos</div><div class=\"itag\" data-id=\"27\" data-eixo=\"7\" title=\"% Área Desmatada\">% Área Desmatada</div><div class=\"itag\" data-id=\"28\" data-eixo=\"7\" title=\"Taxa Desmatamento (km²/ano)\">Taxa Desmatamento (km²/ano)</div><div class=\"itag\" data-id=\"29\" data-eixo=\"7\" title=\"Emissões GEE Agropecuária\">Emissões GEE Agropecuária</div></div></div></div>";
-var IND_PNAD_HTML = "<div class=\"ind-panel\"><div class=\"ind-panel-title\">Selecione o eixo para visualizar o indicador PNAD vinculado</div><div class=\"pnad-sel-grid\"><div class=\"pnad-sel-card pnad-sel-active\" data-eixo=\"1\" onclick=\"selectPnadEixo(1)\"><div class=\"pnad-sel-eixo\">Eixo 1 — Educação e Capacitação Profissional</div><div class=\"pnad-sel-divider\"></div><div class=\"pnad-sel-label\">📊 PNAD Contínua</div><div class=\"pnad-sel-nm\">Média de Anos de Estudo da População</div><div class=\"pnad-sel-un\">Anos</div></div><div class=\"pnad-sel-card pnad-sel-active\" data-eixo=\"2\" onclick=\"selectPnadEixo(2)\"><div class=\"pnad-sel-eixo\">Eixo 2 — Ciência, Tecnologia e Inovação</div><div class=\"pnad-sel-divider\"></div><div class=\"pnad-sel-label\">📊 PNAD Contínua</div><div class=\"pnad-sel-nm\">Proporção de Ocupados como Profissionais das Ciências e Intelectuais</div><div class=\"pnad-sel-un\">%</div></div><div class=\"pnad-sel-card pnad-sel-active\" data-eixo=\"3\" onclick=\"selectPnadEixo(3)\"><div class=\"pnad-sel-eixo\">Eixo 3 — Desenvolvimento Produtivo</div><div class=\"pnad-sel-divider\"></div><div class=\"pnad-sel-label\">📊 PNAD Contínua</div><div class=\"pnad-sel-nm\">Taxa de Desocupação</div><div class=\"pnad-sel-un\">%</div></div><div class=\"pnad-sel-card pnad-sel-active\" data-eixo=\"4\" onclick=\"selectPnadEixo(4)\"><div class=\"pnad-sel-eixo\">Eixo 4 — Infraestrutura</div><div class=\"pnad-sel-divider\"></div><div class=\"pnad-sel-label\">📊 PNAD Contínua</div><div class=\"pnad-sel-nm\">Domicílios com Acesso à Internet</div><div class=\"pnad-sel-un\">%</div></div><div class=\"pnad-sel-card pnad-sel-active\" data-eixo=\"5\" onclick=\"selectPnadEixo(5)\"><div class=\"pnad-sel-eixo\">Eixo 5 — Desenvolvimento Social e Acesso a Serviços</div><div class=\"pnad-sel-divider\"></div><div class=\"pnad-sel-label\">📊 PNAD Contínua</div><div class=\"pnad-sel-nm\">Rendimento Mensal no Setor Privado</div><div class=\"pnad-sel-un\">R$</div></div><div class=\"pnad-sel-card pnad-sel-active\" data-eixo=\"6\" onclick=\"selectPnadEixo(6)\"><div class=\"pnad-sel-eixo\">Eixo 6 — Capacidades Governativas</div><div class=\"pnad-sel-divider\"></div><div class=\"pnad-sel-label\">📊 PNAD Contínua</div><div class=\"pnad-sel-nm\">Anos de Estudo na Administração Pública Municipal</div><div class=\"pnad-sel-un\">Anos</div></div><div class=\"pnad-sel-card pnad-sel-active\" data-eixo=\"7\" onclick=\"selectPnadEixo(7)\"><div class=\"pnad-sel-eixo\">Eixo 7 — Sustentabilidade</div><div class=\"pnad-sel-divider\"></div><div class=\"pnad-sel-label\">📊 PNAD Contínua</div><div class=\"pnad-sel-nm\">Domicílios com Acesso a Esgotamento Sanitário</div><div class=\"pnad-sel-un\">%</div></div></div></div>";
+var IND_PNAD_HTML = "<div class=\"ind-panel\"><div class=\"ind-panel-title\">Selecione o eixo para visualizar o indicador PNAD vinculado</div><div class=\"pnad-sel-grid\"><div class=\"pnad-sel-card pnad-sel-active\" data-eixo=\"1\" onclick=\"selectPnadEixo(1)\"><div class=\"pnad-sel-eixo\">Eixo 1 - Educação e Capacitação Profissional</div><div class=\"pnad-sel-divider\"></div><div class=\"pnad-sel-label\">📊 PNAD Contínua</div><div class=\"pnad-sel-nm\">Média de Anos de Estudo da População</div><div class=\"pnad-sel-un\">Anos</div></div><div class=\"pnad-sel-card pnad-sel-active\" data-eixo=\"2\" onclick=\"selectPnadEixo(2)\"><div class=\"pnad-sel-eixo\">Eixo 2 - Ciência, Tecnologia e Inovação</div><div class=\"pnad-sel-divider\"></div><div class=\"pnad-sel-label\">📊 PNAD Contínua</div><div class=\"pnad-sel-nm\">Proporção de Ocupados como Profissionais das Ciências e Intelectuais</div><div class=\"pnad-sel-un\">%</div></div><div class=\"pnad-sel-card pnad-sel-active\" data-eixo=\"3\" onclick=\"selectPnadEixo(3)\"><div class=\"pnad-sel-eixo\">Eixo 3 - Desenvolvimento Produtivo</div><div class=\"pnad-sel-divider\"></div><div class=\"pnad-sel-label\">📊 PNAD Contínua</div><div class=\"pnad-sel-nm\">Taxa de Desocupação</div><div class=\"pnad-sel-un\">%</div></div><div class=\"pnad-sel-card pnad-sel-active\" data-eixo=\"4\" onclick=\"selectPnadEixo(4)\"><div class=\"pnad-sel-eixo\">Eixo 4 - Infraestrutura</div><div class=\"pnad-sel-divider\"></div><div class=\"pnad-sel-label\">📊 PNAD Contínua</div><div class=\"pnad-sel-nm\">Domicílios com Acesso à Internet</div><div class=\"pnad-sel-un\">%</div></div><div class=\"pnad-sel-card pnad-sel-active\" data-eixo=\"5\" onclick=\"selectPnadEixo(5)\"><div class=\"pnad-sel-eixo\">Eixo 5 - Desenvolvimento Social e Acesso a Serviços</div><div class=\"pnad-sel-divider\"></div><div class=\"pnad-sel-label\">📊 PNAD Contínua</div><div class=\"pnad-sel-nm\">Rendimento Mensal no Setor Privado</div><div class=\"pnad-sel-un\">R$</div></div><div class=\"pnad-sel-card pnad-sel-active\" data-eixo=\"6\" onclick=\"selectPnadEixo(6)\"><div class=\"pnad-sel-eixo\">Eixo 6 - Capacidades Governativas</div><div class=\"pnad-sel-divider\"></div><div class=\"pnad-sel-label\">📊 PNAD Contínua</div><div class=\"pnad-sel-nm\">Anos de Estudo na Administração Pública Municipal</div><div class=\"pnad-sel-un\">Anos</div></div><div class=\"pnad-sel-card pnad-sel-active\" data-eixo=\"7\" onclick=\"selectPnadEixo(7)\"><div class=\"pnad-sel-eixo\">Eixo 7 - Sustentabilidade</div><div class=\"pnad-sel-divider\"></div><div class=\"pnad-sel-label\">📊 PNAD Contínua</div><div class=\"pnad-sel-nm\">Domicílios com Acesso a Esgotamento Sanitário</div><div class=\"pnad-sel-un\">%</div></div></div></div>";
 
 var COR = {Norte:'#117A8B',Nordeste:'#C0392B','Centro-Oeste':'#8E44AD',Sudeste:'#1B4FA8',Sul:'#2C7A4B'};
 var REGIOES = ['Norte','Nordeste','Centro-Oeste','Sudeste','Sul'];
@@ -316,7 +330,7 @@ function nmInd(id){return META[id]?META[id].nm.trim():'';}
 function nmC(id){var nm=nmInd(id);nm=nm.replace('Índice Composto de ','').replace('Índice Composto ','').replace('Indicador Composto do ','').trim();return nm.length>26?nm.slice(0,24)+'…':nm;}
 function avg(arr){if(!arr.length)return null;var s=0;for(var i=0;i<arr.length;i++)s+=arr[i];return parseFloat((s/arr.length).toFixed(4));}
 function bNivel(v,ind){
-  if(v==null) return '—';
+  if(v==null) return '-';
   var p=ind!=null?PERC[String(ind)]:null;
   var b,l;
   if(p&&p.p33!==p.p67){
@@ -326,7 +340,7 @@ function bNivel(v,ind){
   } else {
     b=v>=0.6?'ba':v>=0.35?'bm':'bb';l=v>=0.6?'Alto':v>=0.35?'Médio':'Baixo';
   }
-  var tip='P33='+(p?p.p33.toFixed(3):'—')+' | P67='+(p?p.p67.toFixed(3):'—');
+  var tip='P33='+(p?p.p33.toFixed(3):'-')+' | P67='+(p?p.p67.toFixed(3):'-');
   return '<span class="bn '+b+'" title="'+tip+'">'+l+'</span>';
 }
 function cTip(tp){return tp.indexOf('Alta')===0?'#1B4FA8':tp.indexOf('Média')===0?'#8E44AD':'#C0392B';}
@@ -425,8 +439,8 @@ function toggleSB(){
       var parent=el.closest?el.closest('.grp,.nb,.div'):el.parentNode;
       if(parent){
         if(isPnad) parent.style.display='none';
-        // Na aba municipal ocultar filtros de ano (dados só têm 2024)
-        // ano habilitado na municipal pois agora temos série histórica
+        
+        
         else parent.style.display='';
       }
     }
@@ -470,17 +484,17 @@ function renderPnadPanel(eixoNum){
     var serie=p.serie[rg]||{};var vU=serie[String(ultAno)];var vP=serie[String(priAno)];
     var delta=vU!=null&&vP!=null?vU-vP:null;
     var dCls=delta==null?'u':delta>0?'p':'n';
-    var dStr=delta!=null?((delta>=0?'▲ +':'▼ ')+Math.abs(delta).toFixed(2)):'—';
+    var dStr=delta!=null?((delta>=0?'▲ +':'▼ ')+Math.abs(delta).toFixed(2)):'-';
     var cor=COR_RG[rg];
     return '<div class="pnad-kpi"><div class="rg" style="color:'+cor+'">'+rg+'</div>'
-      +'<div class="vl" style="color:'+cor+'">'+(vU!=null?vU.toFixed(1):'—')+'</div>'
+      +'<div class="vl" style="color:'+cor+'">'+(vU!=null?vU.toFixed(1):'-')+'</div>'
       +'<div class="un">'+p.un+'</div><div class="dl kd '+dCls+'">'+dStr+'</div></div>';
   }).join('');
   return '<div class="pnad-panel">'
-    +'<div class="pnad-panel-title">📊 Eixo '+eixoNum+' — '+EIXO_NM[eixoNum]+' · PNAD Contínua / IBGE</div>'
+    +'<div class="pnad-panel-title">📊 Eixo '+eixoNum+' - '+EIXO_NM[eixoNum]+' · PNAD Contínua / IBGE</div>'
     +'<div class="pnad-panel-sub">Série histórica regional · não compõe o índice composto</div>'
     +'<div class="pnad-ind-nm">'+p.nm+' <span style="font-size:10.5px;color:var(--soft);font-weight:400">('+p.un+')</span></div>'
-    +'<div class="pnad-brasil">🇧🇷 <span>Brasil '+ultAno+':</span> <b>'+(vBr!=null?vBr.toFixed(1):'—')+'</b> <span class="un">'+p.un+'</span>'
+    +'<div class="pnad-brasil">🇧🇷 <span>Brasil '+ultAno+':</span> <b>'+(vBr!=null?vBr.toFixed(1):'-')+'</b> <span class="un">'+p.un+'</span>'
     +(deltaStr?'<span style="color:var(--soft);margin-left:12px;font-size:11.5px">'+deltaStr+'</span>':'')+'</div>'
     +'<div class="pnad-kpi-row">'+kpis+'</div>'
     +'<div class="pnad-cw"><canvas id="pnad-chart-'+eixoNum+'"></canvas></div>'
@@ -544,12 +558,12 @@ function buildMap(containerId,ind,ano){
   var a=ano!=null?ano:S.fim;
   var sid=String(id);
 
-  // Municípios a exibir (filtrados ou todos)
-  var munsVisiveis=munFilt(); // respeita todos os filtros ativos
+  
+  var munsVisiveis=munFilt(); 
   var temFiltroAtivo=(temAbrang()||S.rg!=='all'||S.uf!=='all'||S.tip!=='all');
 
-  // Valor de cada município visível
-  // MUNS.d tem só compostos; para individuais, buscar em MDET
+  
+  
   var valMap={};
   munsVisiveis.forEach(function(m){
     var v=m.d[sid];
@@ -567,7 +581,7 @@ function buildMap(containerId,ind,ano){
     if(v==null) return null;
     var t=vMax===vMin?0.5:(v-vMin)/(vMax-vMin);
     if(negativo) t=1-t;
-    // gradiente: #dce9f7 (baixo) → #1B4FA8 (alto)
+    
     var r=Math.round(220+(27-220)*t);
     var g=Math.round(233+(79-233)*t);
     var b=Math.round(247+(168-247)*t);
@@ -577,7 +591,7 @@ function buildMap(containerId,ind,ano){
   var META_IND=META[id]||{};
   var nmInd2=(META_IND.nm||('Indicador '+id)).trim();
 
-  // Tooltip
+  
   var tip=document.getElementById('map-tip');
   if(!tip){
     tip=document.createElement('div');
@@ -586,14 +600,14 @@ function buildMap(containerId,ind,ano){
     document.body.appendChild(tip);
   }
 
-  var svgNs='http://www.w3.org/2000/svg';
+  var svgNs='http:
   var svg=document.createElementNS(svgNs,'svg');
   svg.setAttribute('viewBox','0 0 500 380');
   svg.setAttribute('preserveAspectRatio','xMidYMid meet');
   svg.style.width='100%';
   svg.style.height='260px';
 
-  // Camada 1: contorno dos estados (fundo)
+  
   Object.keys(PATHS).forEach(function(nome){
     var d=PATHS[nome];
     var path=document.createElementNS(svgNs,'path');
@@ -604,17 +618,17 @@ function buildMap(containerId,ind,ano){
     svg.appendChild(path);
   });
 
-  // Camada 2: pontos dos municípios
+  
   var ibges=Object.keys(MUN_XY);
-  // Set de ibges visíveis
+  
   var ibgesVisiveis={};
   munsVisiveis.forEach(function(m){ibgesVisiveis[String(m.i)]=true;});
 
   ibges.forEach(function(ibge){
     var v=valMap[ibge];
     var cor=getColor(v);
-    if(!cor) return; // sem dado para esse município
-    if(temFiltroAtivo&&!ibgesVisiveis[ibge]) return; // fora do filtro
+    if(!cor) return; 
+    if(temFiltroAtivo&&!ibgesVisiveis[ibge]) return; 
 
     var xy=MUN_XY[ibge];
     var circle=document.createElementNS(svgNs,'circle');
@@ -626,12 +640,12 @@ function buildMap(containerId,ind,ano){
     circle.style.cursor='pointer';
 
     circle.addEventListener('mousemove',function(e){
-      // Buscar nome do município
+      
       var mSel2=MUNS.find(function(m){return String(m.i)===ibge;});
       tip.style.display='block';
       tip.style.left=(e.clientX+14)+'px';
       tip.style.top=(e.clientY-10)+'px';
-      tip.innerHTML='<b>'+(mSel2?mSel2.n:ibge)+'</b>'+(mSel2?'<br>'+mSel2.u:'')+'<br>'+nmInd2+'<br>'+(v!=null?v.toFixed(3):'—');
+      tip.innerHTML='<b>'+(mSel2?mSel2.n:ibge)+'</b>'+(mSel2?'<br>'+mSel2.u:'')+'<br>'+nmInd2+'<br>'+(v!=null?v.toFixed(3):'-');
     });
     circle.addEventListener('mouseleave',function(){tip.style.display='none';});
     circle.addEventListener('click',function(){
@@ -643,7 +657,7 @@ function buildMap(containerId,ind,ano){
 
   el.appendChild(svg);
 
-  // Legenda gradiente
+  
   if(vals.length){
     var leg=document.createElement('div');
     leg.className='map-legend';
@@ -688,7 +702,7 @@ function downloadXLSX(filename, rows, sheetName){
     return;
   }
   var ws = XLSX.utils.aoa_to_sheet(rows);
-  // Estilo da linha de cabeçalho (negrito)
+  
   var range = XLSX.utils.decode_range(ws['!ref']);
   for(var c = range.s.c; c <= range.e.c; c++){
     var cell = ws[XLSX.utils.encode_cell({r:0, c:c})];
@@ -717,7 +731,7 @@ function downloadCSV(filename, rows){
       return s;
     }).join(',');
   }).join('\n');
-  var bom = '\uFEFF'; // BOM para Excel reconhecer UTF-8
+  var bom = '\uFEFF'; 
   var blob = new Blob([bom+csv], {type:'text/csv;charset=utf-8;'});
   var url = URL.createObjectURL(blob);
   var a = document.createElement('a');
@@ -726,7 +740,7 @@ function downloadCSV(filename, rows){
 }
 
 
-// ── Download: Evolução (Eixos e Objetivos) ────────────────────────────────────
+
 function dlEvolucao(){
   var m = META[S.ind]||{};
   var nm = (m.nm||'Indicador').trim();
@@ -735,7 +749,7 @@ function dlEvolucao(){
   serie.filter(function(d){return d.a>=S.ini&&d.a<=S.fim;})
     .sort(function(a,b){return a.rg<b.rg?-1:a.rg>b.rg?1:a.a-b.a;})
     .forEach(function(d){rows.push([d.rg, d.a, d.v!=null?d.v.toFixed(4):'']);});
-  // Se abrangência ativa, adicionar série de abrangência
+  
   if(temAbrang()){
     var serAbr = serieAbrang(S.ind);
     serAbr.forEach(function(d){rows.push(['Abrangência selecionada', d.a, d.v!=null?d.v.toFixed(4):'']);});
@@ -753,7 +767,7 @@ function dlEvolucaoXLSX(){
   downloadXLSX('PNDR_'+nm.replace(/[^a-zA-Z0-9]/g,'_').substring(0,30)+'_'+S.ini+'_'+S.fim+'.xlsx',rows,nm.substring(0,31));
 }
 
-// ── Download: Tipologia ───────────────────────────────────────────────────────
+
 function dlTipologia(){
   var m = META[S.ind]||{};
   var nm = (m.nm||'Indicador').trim();
@@ -790,7 +804,7 @@ function dlTipologiaXLSX(){
   downloadXLSX('PNDR_Tipologia_'+nm.replace(/[^a-zA-Z0-9]/g,'_').substring(0,25)+'.xlsx',rows,'Tipologia');
 }
 
-// ── Download: Análise Municipal ───────────────────────────────────────────────
+
 function dlMunicipal(){
   var compostos = COMP_OBJ.concat(COMP_EIXOS);
   var header = ['Município','UF','Tipologia','IBGE'].concat(
@@ -817,7 +831,7 @@ function dlMunicipalXLSX(){
   downloadXLSX('PNDR_Municipal_2024.xlsx',rows,'Municípios');
 }
 
-// ── Download: Comparativo ─────────────────────────────────────────────────────
+
 function dlComparativo(){
   var compostos = COMP_EIXOS.concat(COMP_OBJ);
   var header = ['Região'].concat(
@@ -847,7 +861,7 @@ function dlComparativoXLSX(){
   downloadXLSX('PNDR_Comparativo_'+S.fim+'.xlsx',rows,'Comparativo');
 }
 
-// ── Download: PNAD ────────────────────────────────────────────────────────────
+
 function dlPnad(){
   var eixo = window._pnadEixo||1;
   var p = PNAD[String(eixo)];
@@ -945,9 +959,9 @@ function renderML(){
 }
 
 function wireIndPanel(sel){
-  // Ativa o indicador inicial e conecta eventos
+  
   var tags=sel.querySelectorAll('.itag');
-  // Marcar o primeiro composto como active por default
+  
   var found=false;
   tags.forEach(function(t){
     if(!found&&t.classList.contains('comp')){t.classList.add('active');S.ind=+t.dataset.id;found=true;}
@@ -957,11 +971,11 @@ function wireIndPanel(sel){
       tags.forEach(function(x){x.classList.remove('active');});
       t.classList.add('active');
       S.ind=+t.dataset.id;
-      // re-render só os gráficos, não o painel inteiro
+      
       renderGraficos();
     });
   });
-  // Marcar o S.ind atual se existir
+  
   tags.forEach(function(t){
     if(+t.dataset.id===S.ind){t.classList.add('active');tags.forEach(function(x){if(x!==t)x.classList.remove('active');});}
   });
@@ -981,7 +995,7 @@ function render(){
   else if(v==='metodologia')rMetodologia(main);
 }
 
-// HELPERS GRÁFICOS
+
 function kpiCard(id){
   var vA=null,vI=null;
   var sid=String(id);
@@ -1095,7 +1109,7 @@ function renderGraficosComuns(){
   var anos=[...new Set(serie.map(function(d){return d.a;}))].sort(function(a,b){return a-b;});
   var lbl=S.uf!=='all'?'Estado':S.rg!=='all'?S.rg:'Região';
 
-  // Linha principal
+  
   if(temAbrang()){
     var serAbr=serieAbrang(S.ind);
     if(serAbr.length>0){
@@ -1111,32 +1125,32 @@ function renderGraficosComuns(){
     document.getElementById('ll').innerHTML=eixos.map(function(rg){return '<div class="li"><div class="ld" style="background:'+(COR[rg]||'#1B4FA8')+'"></div>'+rg+'</div>';}).join('');
   }
 
-  // Abrangência
+  
   buildAbrangChart('ca',S.ind);
-  // Atualizar mapa
+  
   if(typeof buildMap==='function') buildMap('brasil-map-main',S.ind,S.fim);
 
-  // Bar por região
+  
   dc('cb');
   var bD=REGIOES.map(function(rg){var r=DB.serie.find(function(d){return d.mdata_id===S.ind&&d.rg===rg&&d.a===S.fim;});return {rg:rg,v:r?r.v:null};}).filter(function(d){return d.v!=null;});
   charts['cb']=new Chart(document.getElementById('cb'),{type:'bar',data:{labels:bD.map(function(d){return d.rg;}),datasets:[{data:bD.map(function(d){return d.v;}),backgroundColor:bD.map(function(d){return (COR[d.rg]||'#1B4FA8')+'28';}),borderColor:bD.map(function(d){return COR[d.rg]||'#1B4FA8';}),borderWidth:2,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'#e8eaed'}}}}});
 
-  // Tabela
+  
   var thAnos=anos.map(function(a){return '<th>'+a+'</th>';}).join('');
   var serAbrTab=temAbrang()?serieAbrang(S.ind):[];
   var eixosTab=serAbrTab.length>0?['Abrangência']:eixos;
   var rows=eixosTab.map(function(rg){
-    var tds=anos.map(function(a){var r;if(serAbrTab.length>0){r=serAbrTab.find(function(d){return d.a===a;});}else{r=serie.find(function(d){return d.rg===rg&&d.a===a;});}return '<td>'+(r&&r.v!=null?r.v.toFixed(3):'—')+'</td>';}).join('');
+    var tds=anos.map(function(a){var r;if(serAbrTab.length>0){r=serAbrTab.find(function(d){return d.a===a;});}else{r=serie.find(function(d){return d.rg===rg&&d.a===a;});}return '<td>'+(r&&r.v!=null?r.v.toFixed(3):'-')+'</td>';}).join('');
     return '<tr><td><b>'+rg+'</b></td>'+tds+'</tr>';
   }).join('');
   document.getElementById('tev').innerHTML='<table><thead><tr><th>'+(S.uf!=='all'?'Estado':'Região/Abrangência')+'</th>'+thAnos+'</tr></thead><tbody>'+rows+'</tbody></table>';
 
-  // ind info
+  
   var m=META[S.ind];
   var infoEl=document.getElementById('ind-info-bar');
   if(infoEl&&m) infoEl.innerHTML='<b>'+m.nm.trim()+'</b> <span style="color:rgba(255,255,255,.75);font-size:12px">· '+m.gnm+' – '+m.gdesc+'</span>';
 
-  // KPI cards — atualizar destaque
+  
   document.querySelectorAll('.kc').forEach(function(k){k.classList.toggle('active',+k.dataset.id===S.ind);});
   document.querySelectorAll('.itag').forEach(function(t){t.classList.toggle('active',+t.dataset.id===S.ind);});
 }
@@ -1218,7 +1232,7 @@ function rPrincipal(main){
     +'<div class="mini-card" onclick="irPara(\'tipologia\')"><div class="ic">🗂️</div><b>Por Tipologia PNDR</b><p>Compare indicadores por faixa de renda e dinamismo econômico.</p></div>'
     +'<div class="mini-card" onclick="irPara(\'comparativo\')"><div class="ic">🔄</div><b>Comparativo Geral</b><p>Radar com todos os eixos e objetivos por macrorregião.</p></div>'
     +'<div class="mini-card" onclick="irPara(\'metodologia\')"><div class="ic">📋</div><b>Metodologia</b><p>Documentação dos indicadores, fontes e critérios de cálculo.</p></div>'
-    +'<div class="mini-card" onclick="irPara(\'pnad\')"><div class="ic">📊</div><b>PNAD Contínua — IBGE</b><p>Indicadores regionais complementares vinculados a cada eixo · série 2016–2025.</p></div>'
+    +'<div class="mini-card" onclick="irPara(\'pnad\')"><div class="ic">📊</div><b>PNAD Contínua - IBGE</b><p>Indicadores regionais complementares vinculados a cada eixo · série 2016–2025.</p></div>'
     +'</div>';
 
   var bi=document.getElementById('hero-busca'),br=document.getElementById('hero-res');
@@ -1226,7 +1240,7 @@ function rPrincipal(main){
     var t=bi.value.trim().toLowerCase();if(!t){br.style.display='none';return;}
     var res=MUNS.filter(function(m){return m.n.toLowerCase().indexOf(t)>=0||m.u.toLowerCase().indexOf(t)>=0;}).slice(0,12);
     if(!res.length){br.style.display='none';return;}
-    br.innerHTML=res.map(function(m){return '<div data-ibge="'+m.i+'">'+m.n+' ('+m.u+') — '+m.tp+'</div>';}).join('');
+    br.innerHTML=res.map(function(m){return '<div data-ibge="'+m.i+'">'+m.n+' ('+m.u+') - '+m.tp+'</div>';}).join('');
     br.style.display='block';
     br.querySelectorAll('div').forEach(function(d){d.addEventListener('click',function(){S.munSel=+d.dataset.ibge;irPara('municipio');});});
   }
@@ -1270,7 +1284,7 @@ function rTipologia(main){
   var tabRows=tps.map(function(tp,i){
     var v=vals[i],cor=cTip(tp);
     return '<tr><td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+cor+';margin-right:5px"></span>'+tp+'</td>'
-      +'<td><b>'+(v!=null?v.toFixed(3):'—')+'</b></td><td>'+(v!=null?bNivel(v,indTip):'—')+'</td>'
+      +'<td><b>'+(v!=null?v.toFixed(3):'-')+'</b></td><td>'+(v!=null?bNivel(v,indTip):'-')+'</td>'
       +'<td><div class="mbw"><div class="mb" style="width:'+(v!=null?Math.round(v*100):0)+'px;background:'+cor+'"></div></div></td></tr>';
   }).join('');
   var abNote=temAbrang()?'<span style="background:#e3edf9;color:var(--pr);border-radius:12px;padding:2px 10px;font-size:10.5px;font-weight:600;margin-left:8px">▼ Abrangência ativa</span>':'';
@@ -1283,7 +1297,7 @@ function rTipologia(main){
     '<div id="ind-info-bar" class="ind-info"></div>'+
     '<div class="g2">'+
     '<div class="card"><h2>Valor por Tipologia</h2><div class="desc">Média dos municípios de cada tipologia</div><div style="height:300px"><canvas id="ctip"></canvas></div></div>'+
-    '<div class="card"><h2>Radar — Eixos por Faixa de Renda</h2><div class="desc">7 eixos compostos · Alta, Média, Baixa Renda</div><div style="height:300px"><canvas id="crad"></canvas></div></div>'+
+    '<div class="card"><h2>Radar - Eixos por Faixa de Renda</h2><div class="desc">7 eixos compostos · Alta, Média, Baixa Renda</div><div style="height:300px"><canvas id="crad"></canvas></div></div>'+
     '</div>'+
     '<div class="card"><h2>Tabela por Tipologia</h2><table><thead><tr><th>Tipologia</th><th>Valor médio</th><th>Nível</th><th>Barra</th></tr></thead><tbody>'+tabRows+'</tbody></table></div>';
   var m2=META[indTip];
@@ -1299,7 +1313,7 @@ function rTipologia(main){
 }
 
 function rMunicipio(main){
-  // Carregar série histórica municipal sob demanda
+  
   if(!_detSerieCarregado){
     _detSerieCarregado=true;
     var loading=document.getElementById('loading');
@@ -1308,7 +1322,7 @@ function rMunicipio(main){
       fetch('dados/det_serie_1.json').then(function(r){return r.json();}),
       fetch('dados/det_serie_2.json').then(function(r){return r.json();})
     ]).then(function(parts){
-      // Mesclar as duas partes em MDET_SERIE
+      
       MDET_SERIE={};
       var k;
       for(k in parts[0]) MDET_SERIE[k]=parts[0][k];
@@ -1331,11 +1345,11 @@ function _renderMunicipio(main){
   if(!mSel){
     var tabRows=munFilt().filter(function(m){return !S.munBusca||m.n.toLowerCase().indexOf(S.munBusca)>=0;}).slice(0,40).map(function(m){
       return '<tr style="cursor:pointer" onclick="S.munSel='+m.i+';renderML();render()"><td><b>'+m.n+'</b></td><td>'+m.u+'</td><td style="font-size:10.5px">'+m.tp+'</td>'
-        +'<td>'+(m.d['62']!=null?m.d['62'].toFixed(3):'—')+'</td>'
-        +'<td>'+(m.d['63']!=null?m.d['63'].toFixed(3):'—')+'</td>'
-        +'<td>'+(m.d['5']!=null?m.d['5'].toFixed(3):'—')+'</td>'
-        +'<td>'+(m.d['25']!=null?m.d['25'].toFixed(3):'—')+'</td>'
-        +'<td>'+(m.d['20']!=null?m.d['20'].toFixed(3):'—')+'</td></tr>';
+        +'<td>'+(m.d['62']!=null?m.d['62'].toFixed(3):'-')+'</td>'
+        +'<td>'+(m.d['63']!=null?m.d['63'].toFixed(3):'-')+'</td>'
+        +'<td>'+(m.d['5']!=null?m.d['5'].toFixed(3):'-')+'</td>'
+        +'<td>'+(m.d['25']!=null?m.d['25'].toFixed(3):'-')+'</td>'
+        +'<td>'+(m.d['20']!=null?m.d['20'].toFixed(3):'-')+'</td></tr>';
     }).join('');
     main.innerHTML=
       '<div class="tb-top"><div class="tb"><h1>Análise Municipal</h1>'
@@ -1349,11 +1363,11 @@ function _renderMunicipio(main){
     return;
   }
 
-  // Montar det: prioridade MDET_SERIE[ano] > MDET[2024] > MUNS.d
+  
   var det={};
   var detFull=MDET[String(mSel.i)]||{};
   for(var k in detFull) det[k]=detFull[k];
-  // Sobrescrever com dados do ano selecionado se disponível
+  
   var serieMun=MDET_SERIE[String(mSel.i)]||{};
   var anoStr=String(S.ano);
   for(var ind in serieMun){
@@ -1384,12 +1398,12 @@ function _renderMunicipio(main){
     var cor=v!=null&&v>=0.6?'var(--gn)':v!=null&&v>=0.35?'var(--am)':'var(--rd)';
     var subsHtml=e.subs.map(function(s){
       var sv=det[String(s.id)];
-      var svStr=sv!=null?(Math.abs(sv)<100?sv.toFixed(3):sv.toFixed(1)):'—';
+      var svStr=sv!=null?(Math.abs(sv)<100?sv.toFixed(3):sv.toFixed(1)):'-';
       return '<div class="si"><span class="snm" title="'+nmInd(s.id)+'">'+s.nm+'</span><span class="sv">'+svStr+'</span></div>';
     }).join('');
     return '<div class="mdet-eixo">'
       +'<div class="en">'+e.gnm+'</div>'
-      +'<div class="ev" style="color:'+cor+'">'+(v!=null?v.toFixed(3):'—')+'</div>'
+      +'<div class="ev" style="color:'+cor+'">'+(v!=null?v.toFixed(3):'-')+'</div>'
       +'<div>'+(v!=null?bNivel(v,e.id):'')+'</div>'
       +subsHtml+'</div>';
   }
@@ -1406,16 +1420,13 @@ function _renderMunicipio(main){
     +'<div class="card"><h2>Radar dos Eixos</h2><div style="height:220px"><canvas id="cmr"></canvas></div></div>'
     +'<div class="card"><h2>Objetivos da PNDR</h2><div style="height:220px"><canvas id="cmro"></canvas></div></div>'
     +'</div>'
-    +(Object.keys(serieMun).length?'
-      <div class="card"><h2>Evolução Histórica dos Compostos · '+mSel.n+'</h2>'
-      +'<div class="desc">Índices compostos 2013–'+ANO_MAX+' · selecione o ano de análise no filtro lateral</div>'
-      +'<div style="height:260px"><canvas id="cmhist"></canvas></div></div>':'')
+    +(Object.keys(serieMun).length?'<div class="card"><h2>Evolução Histórica dos Compostos · '+mSel.n+'</h2><div class="desc">Índices compostos 2013–'+ANO_MAX+' · selecione o ano de análise no filtro lateral</div><div style="height:260px"><canvas id="cmhist"></canvas></div></div>':'')
     +'<div class="card"><h2>Eixos Estratégicos · 2024</h2>'
     +'<div class="mdet-grid">'+EIXOS_DEF.map(mkCard).join('')+'</div></div>'
     +'<div class="card"><h2>Objetivos da PNDR · 2024</h2>'
     +'<div class="mdet-grid mdet-grid-obj">'+OBJ_DEF.map(mkCard).join('')+'</div></div>';
 
-  // Radar eixos
+  
   dc('cmr');
   var rNms=EIXOS_DEF.map(function(e){return e.gnm.split('–')[0].trim();});
   charts['cmr']=new Chart(document.getElementById('cmr'),{type:'radar',data:{labels:rNms,datasets:[{
@@ -1426,7 +1437,7 @@ function _renderMunicipio(main){
     plugins:{legend:{display:false}},
     scales:{r:{min:0,max:1,pointLabels:{font:{size:9}},ticks:{stepSize:0.2,font:{size:8}}}}}});
 
-  // Gráfico de evolução histórica
+  
   if(Object.keys(serieMun).length&&document.getElementById('cmhist')){
     dc('cmhist');
     var COMP_ALL={5:'Educação',10:'C&T',15:'Des.Produtivo',20:'Infraestrutura',
@@ -1450,7 +1461,7 @@ function _renderMunicipio(main){
           y:{min:0,max:1,grid:{color:'#e8eaed'},ticks:{font:{size:10}}}}}});
   }
 
-  // Radar objetivos
+  
   dc('cmro');
   var oNms=OBJ_DEF.map(function(e){return e.gnm;});
   charts['cmro']=new Chart(document.getElementById('cmro'),{type:'radar',data:{labels:oNms,datasets:[{
@@ -1492,8 +1503,8 @@ function rComparativo(main){
     '<div class="tb-top"><div class="tb"><h1>Comparativo Geral'+abNote+'</h1><div class="sub">Todos os índices compostos · '+S.fim+'</div></div>'+
 btnDL('Dados','dlComparativo()','dlComparativoXLSX()')+
 '</div>'+
-    '<div class="card"><h2>Radar — Eixos por Região</h2><div class="desc">7 eixos · '+S.fim+'</div><div style="height:340px"><canvas id="cre"></canvas></div></div>'+
-    '<div class="g2"><div class="card"><h2>Radar — Objetivos</h2><div class="desc">4 Objetivos · '+S.fim+'</div><div style="height:260px"><canvas id="cro"></canvas></div></div>'+
+    '<div class="card"><h2>Radar - Eixos por Região</h2><div class="desc">7 eixos · '+S.fim+'</div><div style="height:340px"><canvas id="cre"></canvas></div></div>'+
+    '<div class="g2"><div class="card"><h2>Radar - Objetivos</h2><div class="desc">4 Objetivos · '+S.fim+'</div><div style="height:260px"><canvas id="cro"></canvas></div></div>'+
     '<div class="card"><h2>Ranking</h2><div class="desc">Média '+(temFiltro?'do recorte':'nacional')+' · '+S.fim+'</div><div style="height:260px"><canvas id="crk"></canvas></div></div></div>';
   var rOpts=function(p){return {responsive:true,maintainAspectRatio:false,plugins:{legend:{position:p,labels:{font:{size:10},boxWidth:8}}},scales:{r:{min:0,max:1,pointLabels:{font:{size:9}},ticks:{stepSize:0.2,font:{size:8}}}}};};
   dc('cre');charts['cre']=new Chart(document.getElementById('cre'),{type:'radar',data:{labels:nmsE,datasets:dsRg(COMP_EIXOS)},options:rOpts('right')});
@@ -1512,94 +1523,94 @@ function rMetodologia(main){
     '<div class="card met-secao"><h3>Objetivos da PNDR</h3>'+
     '<p>Os quatro objetivos estratégicos medem a convergência regional em dimensões distintas. Cada objetivo possui um <b>índice composto</b> calculado como média aritmética simples dos seus indicadores individuais, após normalização min-max na escala 0–1 com base na distribuição nacional de 2024.</p>'+
     '<div class="met-grid">'+
-    '<div class="met-item"><b>Objetivo 1 — Convergência e Equidade</b>'+
+    '<div class="met-item"><b>Objetivo 1 - Convergência e Equidade</b>'+
     '<p style="font-size:11.5px;margin:4px 0 4px">Mede a redução das disparidades regionais em renda, educação e saúde em relação à mediana nacional.</p>'+
-    '<ul><li><b>Dif. Salário Médio vs Mediana Nacional</b> — diferença percentual entre o salário médio do município e a mediana nacional</li>'+
-    '<li><b>Dif. IDEB vs Mediana Nacional</b> — diferença entre o IDEB do município e a mediana nacional</li>'+
-    '<li><b>Dif. Médicos/Hab vs Mediana Nacional</b> — diferença na razão de médicos por habitante em relação à mediana</li>'+
+    '<ul><li><b>Dif. Salário Médio vs Mediana Nacional</b> - diferença percentual entre o salário médio do município e a mediana nacional</li>'+
+    '<li><b>Dif. IDEB vs Mediana Nacional</b> - diferença entre o IDEB do município e a mediana nacional</li>'+
+    '<li><b>Dif. Médicos/Hab vs Mediana Nacional</b> - diferença na razão de médicos por habitante em relação à mediana</li>'+
     '<li><b>Composto:</b> média aritmética dos 3 indicadores normalizados</li></ul></div>'+
-    '<div class="met-item"><b>Objetivo 2 — Rede Policêntrica de Cidades</b>'+
+    '<div class="met-item"><b>Objetivo 2 - Rede Policêntrica de Cidades</b>'+
     '<p style="font-size:11.5px;margin:4px 0 4px">Avalia a distribuição equilibrada de funções urbanas no território, penalizando a primazia excessiva de centros únicos.</p>'+
-    '<ul><li><b>Índice de Centralidade</b> — capacidade do município de polarizar serviços e fluxos regionais</li>'+
-    '<li><b>Razão de Primazia Populacional Estadual</b> — concentração da população no maior município do estado</li>'+
-    '<li><b>Razão de Primazia Econômica Estadual</b> — concentração do PIB no maior município do estado</li>'+
+    '<ul><li><b>Índice de Centralidade</b> - capacidade do município de polarizar serviços e fluxos regionais</li>'+
+    '<li><b>Razão de Primazia Populacional Estadual</b> - concentração da população no maior município do estado</li>'+
+    '<li><b>Razão de Primazia Econômica Estadual</b> - concentração do PIB no maior município do estado</li>'+
     '<li><b>Composto:</b> média aritmética dos 3 indicadores normalizados</li></ul></div>'+
-    '<div class="met-item"><b>Objetivo 3 — Produtividade e Competitividade</b>'+
+    '<div class="met-item"><b>Objetivo 3 - Produtividade e Competitividade</b>'+
     '<p style="font-size:11.5px;margin:4px 0 4px">Afere a capacidade produtiva local, combinando qualificação da força de trabalho, remuneração e dinamismo demográfico.</p>'+
-    '<ul><li><b>% vínculos formais com ensino superior</b> — parcela dos empregos formais ocupados por trabalhadores com nível superior</li>'+
-    '<li><b>Salário Médio no Mercado Formal</b> — remuneração média dos empregos formais (RAIS), normalizada</li>'+
-    '<li><b>Taxa de Variação Populacional</b> — crescimento demográfico intercensitário como proxy de atratividade</li>'+
+    '<ul><li><b>% vínculos formais com ensino superior</b> - parcela dos empregos formais ocupados por trabalhadores com nível superior</li>'+
+    '<li><b>Salário Médio no Mercado Formal</b> - remuneração média dos empregos formais (RAIS), normalizada</li>'+
+    '<li><b>Taxa de Variação Populacional</b> - crescimento demográfico intercensitário como proxy de atratividade</li>'+
     '<li><b>Composto:</b> média aritmética dos 3 indicadores normalizados</li></ul></div>'+
-    '<div class="met-item"><b>Objetivo 4 — Diversificação Econômica</b>'+
+    '<div class="met-item"><b>Objetivo 4 - Diversificação Econômica</b>'+
     '<p style="font-size:11.5px;margin:4px 0 4px">Mede o grau de diversificação da base econômica local, penalizando a dependência excessiva de setores primários.</p>'+
-    '<ul><li><b>Especialização em Atividades Agrícolas</b> — quociente locacional do setor agropecuário (inverso: maior especialização = menor score)</li>'+
-    '<li><b>Especialização em Mineração</b> — quociente locacional do setor extrativo mineral (inverso)</li>'+
-    '<li><b>Coeficiente de Diversificação Econômica</b> — índice de Herfindahl-Hirschman invertido: maior diversificação = maior score</li>'+
+    '<ul><li><b>Especialização em Atividades Agrícolas</b> - quociente locacional do setor agropecuário (inverso: maior especialização = menor score)</li>'+
+    '<li><b>Especialização em Mineração</b> - quociente locacional do setor extrativo mineral (inverso)</li>'+
+    '<li><b>Coeficiente de Diversificação Econômica</b> - índice de Herfindahl-Hirschman invertido: maior diversificação = maior score</li>'+
     '<li><b>Composto:</b> média aritmética dos 3 indicadores normalizados</li></ul></div>'+
     '</div></div>'+
     '<div class="card met-secao"><h3>Eixos Estratégicos</h3>'+
     '<p>Os sete eixos organizam os indicadores por tema de política pública. Cada eixo possui um <b>índice composto</b> calculado como média aritmética simples dos quatro indicadores individuais, após normalização min-max na escala 0–1 com base na distribuição nacional dos 5.570 municípios em 2024. Indicadores "quanto menor melhor" (desnutrição, desmatamento, internações etc.) têm sua escala invertida antes da composição.</p>'+
     '<div class="met-grid">'+
-    '<div class="met-item"><b>Eixo 1 — Educação e Capacitação Profissional</b>'+
+    '<div class="met-item"><b>Eixo 1 - Educação e Capacitação Profissional</b>'+
     '<p style="font-size:11.5px;margin:4px 0 4px">Avalia as condições de infraestrutura escolar e qualidade do ensino básico.</p>'+
-    '<ul><li><b>% escolas c/ esgotamento sanitário</b> — parcela das escolas com rede de esgoto (INEP/Censo Escolar)</li>'+
-    '<li><b>% escolas c/ acesso à internet</b> — parcela das escolas com conexão ativa (INEP/Censo Escolar)</li>'+
-    '<li><b>Adequação da Formação Docente</b> — % de docentes com formação compatível com a disciplina que lecionam (INEP)</li>'+
-    '<li><b>IDEB</b> — Índice de Desenvolvimento da Educação Básica, anos finais do Ensino Fundamental (INEP)</li>'+
+    '<ul><li><b>% escolas c/ esgotamento sanitário</b> - parcela das escolas com rede de esgoto (INEP/Censo Escolar)</li>'+
+    '<li><b>% escolas c/ acesso à internet</b> - parcela das escolas com conexão ativa (INEP/Censo Escolar)</li>'+
+    '<li><b>Adequação da Formação Docente</b> - % de docentes com formação compatível com a disciplina que lecionam (INEP)</li>'+
+    '<li><b>IDEB</b> - Índice de Desenvolvimento da Educação Básica, anos finais do Ensino Fundamental (INEP)</li>'+
     '<li><b>Composto:</b> média aritmética dos 4 indicadores normalizados</li></ul></div>'+
-    '<div class="met-item"><b>Eixo 2 — Ciência, Tecnologia e Inovação</b>'+
+    '<div class="met-item"><b>Eixo 2 - Ciência, Tecnologia e Inovação</b>'+
     '<p style="font-size:11.5px;margin:4px 0 4px">Mede a densidade do ecossistema local de inovação e pesquisa científica.</p>'+
-    '<ul><li><b>MPE Biotecnologia/Saúde por mi hab.</b> — micro e pequenas empresas de base tecnológica em biotech e saúde por milhão de habitantes (RAIS)</li>'+
-    '<li><b>Empregos Des. Científico por mi hab.</b> — postos de trabalho em desenvolvimento científico por milhão de habitantes (RAIS)</li>'+
-    '<li><b>Empregos Estab. Científico por mi hab.</b> — empregos em estabelecimentos de pesquisa científica por milhão de habitantes (RAIS)</li>'+
-    '<li><b>Patentes por 100 mil hab.</b> — depósitos de patentes no INPI por 100 mil habitantes</li>'+
+    '<ul><li><b>MPE Biotecnologia/Saúde por mi hab.</b> - micro e pequenas empresas de base tecnológica em biotech e saúde por milhão de habitantes (RAIS)</li>'+
+    '<li><b>Empregos Des. Científico por mi hab.</b> - postos de trabalho em desenvolvimento científico por milhão de habitantes (RAIS)</li>'+
+    '<li><b>Empregos Estab. Científico por mi hab.</b> - empregos em estabelecimentos de pesquisa científica por milhão de habitantes (RAIS)</li>'+
+    '<li><b>Patentes por 100 mil hab.</b> - depósitos de patentes no INPI por 100 mil habitantes</li>'+
     '<li><b>Composto:</b> média aritmética dos 4 indicadores normalizados</li></ul></div>'+
-    '<div class="met-item"><b>Eixo 3 — Desenvolvimento Produtivo</b>'+
+    '<div class="met-item"><b>Eixo 3 - Desenvolvimento Produtivo</b>'+
     '<p style="font-size:11.5px;margin:4px 0 4px">Avalia a sofisticação e a capacidade produtiva da economia local.</p>'+
-    '<ul><li><b>Complexidade Econômica</b> — índice de complexidade econômica municipal derivado da diversidade e ubiquidade dos produtos exportados (MIT/MDIC)</li>'+
-    '<li><b>% industrial no emprego formal</b> — parcela dos empregos formais no setor industrial (RAIS)</li>'+
-    '<li><b>Salário médio no mercado formal</b> — remuneração média dos trabalhadores formais em salários mínimos (RAIS)</li>'+
-    '<li><b>Escala produtiva</b> — tamanho médio dos estabelecimentos produtivos como proxy de economias de escala (RAIS)</li>'+
+    '<ul><li><b>Complexidade Econômica</b> - índice de complexidade econômica municipal derivado da diversidade e ubiquidade dos produtos exportados (MIT/MDIC)</li>'+
+    '<li><b>% industrial no emprego formal</b> - parcela dos empregos formais no setor industrial (RAIS)</li>'+
+    '<li><b>Salário médio no mercado formal</b> - remuneração média dos trabalhadores formais em salários mínimos (RAIS)</li>'+
+    '<li><b>Escala produtiva</b> - tamanho médio dos estabelecimentos produtivos como proxy de economias de escala (RAIS)</li>'+
     '<li><b>Composto:</b> média aritmética dos 4 indicadores normalizados</li></ul></div>'+
-    '<div class="met-item"><b>Eixo 4 — Infraestrutura</b>'+
+    '<div class="met-item"><b>Eixo 4 - Infraestrutura</b>'+
     '<p style="font-size:11.5px;margin:4px 0 4px">Mede o acesso a serviços básicos de saneamento, conectividade digital e saúde ambiental.</p>'+
-    '<ul><li><b>Atend. Urbano de Água (IN023)</b> — índice de atendimento urbano de água da SNIS (SNSA/MDR)</li>'+
-    '<li><b>% Internet Alta Velocidade</b> — parcela dos acessos fixos de banda larga com velocidade ≥ 34 Mbps (Anatel)</li>'+
-    '<li><b>Internações DRSAI por 10 mil hab.</b> — internações por Doenças Relacionadas ao Saneamento Ambiental Inadequado por 10 mil habitantes (SIH/DATASUS) — invertido</li>'+
-    '<li><b>Despesas habitação per capita</b> — despesas municipais per capita com habitação e urbanismo (SICONFI/STN)</li>'+
+    '<ul><li><b>Atend. Urbano de Água (IN023)</b> - índice de atendimento urbano de água da SNIS (SNSA/MDR)</li>'+
+    '<li><b>% Internet Alta Velocidade</b> - parcela dos acessos fixos de banda larga com velocidade ≥ 34 Mbps (Anatel)</li>'+
+    '<li><b>Internações DRSAI por 10 mil hab.</b> - internações por Doenças Relacionadas ao Saneamento Ambiental Inadequado por 10 mil habitantes (SIH/DATASUS) - invertido</li>'+
+    '<li><b>Despesas habitação per capita</b> - despesas municipais per capita com habitação e urbanismo (SICONFI/STN)</li>'+
     '<li><b>Composto:</b> média aritmética dos 4 indicadores normalizados (DRSAI com escala invertida)</li></ul></div>'+
-    '<div class="met-item"><b>Eixo 5 — Desenvolvimento Social e Acesso a Serviços</b>'+
+    '<div class="met-item"><b>Eixo 5 - Desenvolvimento Social e Acesso a Serviços</b>'+
     '<p style="font-size:11.5px;margin:4px 0 4px">Afere as condições de vulnerabilidade social e equidade de renda, com ênfase em populações em situação de risco.</p>'+
-    '<ul><li><b>Desnutrição</b> — prevalência de desnutrição infantil em crianças < 5 anos acompanhadas pelo SISVAN — invertido</li>'+
-    '<li><b>% Baixa Renda no CadÚnico</b> — parcela da população registrada no CadÚnico com renda per capita ≤ 1/2 salário mínimo — invertido</li>'+
-    '<li><b>Distorção Idade-Série</b> — % de alunos com idade acima do esperado para a série no Ensino Fundamental (INEP) — invertido</li>'+
-    '<li><b>Dif. Salarial Médio Feminino</b> — diferença entre o salário médio feminino e o masculino no mercado formal (RAIS) — quanto menor a diferença, maior o score</li>'+
+    '<ul><li><b>Desnutrição</b> - prevalência de desnutrição infantil em crianças < 5 anos acompanhadas pelo SISVAN - invertido</li>'+
+    '<li><b>% Baixa Renda no CadÚnico</b> - parcela da população registrada no CadÚnico com renda per capita ≤ 1/2 salário mínimo - invertido</li>'+
+    '<li><b>Distorção Idade-Série</b> - % de alunos com idade acima do esperado para a série no Ensino Fundamental (INEP) - invertido</li>'+
+    '<li><b>Dif. Salarial Médio Feminino</b> - diferença entre o salário médio feminino e o masculino no mercado formal (RAIS) - quanto menor a diferença, maior o score</li>'+
     '<li><b>Composto:</b> média aritmética dos 4 indicadores normalizados (todos com escala invertida ou ajustada)</li></ul></div>'+
-    '<div class="met-item"><b>Eixo 6 — Capacidades Governativas</b>'+
+    '<div class="met-item"><b>Eixo 6 - Capacidades Governativas</b>'+
     '<p style="font-size:11.5px;margin:4px 0 4px">Avalia a qualidade da gestão pública municipal, combinando qualificação dos servidores, remuneração e sustentabilidade fiscal.</p>'+
-    '<ul><li><b>% dirigentes c/ ensino superior</b> — parcela dos cargos de direção e chefia na administração municipal ocupados por servidores com nível superior (RAIS)</li>'+
-    '<li><b>% servidores c/ ensino superior</b> — parcela dos servidores municipais com nível superior (RAIS)</li>'+
-    '<li><b>Salário médio serv. públicos</b> — remuneração média dos servidores da administração pública municipal (RAIS)</li>'+
-    '<li><b>Sustentabilidade Fiscal</b> — receita própria municipal como proporção da receita total (SICONFI/STN)</li>'+
+    '<ul><li><b>% dirigentes c/ ensino superior</b> - parcela dos cargos de direção e chefia na administração municipal ocupados por servidores com nível superior (RAIS)</li>'+
+    '<li><b>% servidores c/ ensino superior</b> - parcela dos servidores municipais com nível superior (RAIS)</li>'+
+    '<li><b>Salário médio serv. públicos</b> - remuneração média dos servidores da administração pública municipal (RAIS)</li>'+
+    '<li><b>Sustentabilidade Fiscal</b> - receita própria municipal como proporção da receita total (SICONFI/STN)</li>'+
     '<li><b>Composto:</b> média aritmética dos 4 indicadores normalizados</li></ul></div>'+
-    '<div class="met-item"><b>Eixo 7 — Sustentabilidade</b>'+
+    '<div class="met-item"><b>Eixo 7 - Sustentabilidade</b>'+
     '<p style="font-size:11.5px;margin:4px 0 4px">Mede a relação do município com o meio ambiente, combinando economia verde e pressão sobre os recursos naturais.</p>'+
-    '<ul><li><b>Empregos em Reciclagem e Resíduos</b> — postos de trabalho formais em atividades de reciclagem e gestão de resíduos por mil habitantes (RAIS)</li>'+
-    '<li><b>% Área Desmatada</b> — parcela do território municipal com supressão de vegetação nativa acumulada (MapBiomas) — invertido</li>'+
-    '<li><b>Taxa Desmatamento (km²/ano)</b> — área desmatada anual em km² (PRODES/INPE) — invertido</li>'+
-    '<li><b>Emissões GEE Agropecuária</b> — emissões de gases de efeito estufa do setor agropecuário em tCO₂e (SEEG/MCTI) — invertido</li>'+
+    '<ul><li><b>Empregos em Reciclagem e Resíduos</b> - postos de trabalho formais em atividades de reciclagem e gestão de resíduos por mil habitantes (RAIS)</li>'+
+    '<li><b>% Área Desmatada</b> - parcela do território municipal com supressão de vegetação nativa acumulada (MapBiomas) - invertido</li>'+
+    '<li><b>Taxa Desmatamento (km²/ano)</b> - área desmatada anual em km² (PRODES/INPE) - invertido</li>'+
+    '<li><b>Emissões GEE Agropecuária</b> - emissões de gases de efeito estufa do setor agropecuário em tCO₂e (SEEG/MCTI) - invertido</li>'+
     '<li><b>Composto:</b> média aritmética dos 4 indicadores normalizados (indicadores ambientais negativos com escala invertida)</li></ul></div>'+
     '</div></div>'+
     '<div class="card met-secao"><h3>Indicadores PNAD Contínua</h3>'+
     '<p>Indicadores de abrangência regional (macrorregiões), complementares a cada eixo. <b>Não compõem os índices compostos.</b> Fonte: PNAD Contínua / IBGE · Período: 2016–2025.</p>'+
     '<div class="met-grid">'+
-    '<div class="met-item"><b>Eixo 1 — Média de Anos de Estudo da População</b><ul><li>Variável: VD3005</li><li>Unidade: Anos</li></ul></div>'+
-    '<div class="met-item"><b>Eixo 2 — Proporção de Ocupados como Profissionais das Ciências e Intelectuais</b><ul><li>Variável: VD4011</li><li>Unidade: %</li></ul></div>'+
-    '<div class="met-item"><b>Eixo 3 — Taxa de Desocupação</b><ul><li>% pessoas ≥ 14 anos sem trabalho buscando emprego</li><li>Unidade: %</li></ul></div>'+
-    '<div class="met-item"><b>Eixo 4 — Domicílios com Acesso à Internet</b><ul><li>Variável: S01029</li><li>Unidade: %</li></ul></div>'+
-    '<div class="met-item"><b>Eixo 5 — Rendimento Mensal no Setor Privado</b><ul><li>Variáveis: VD4020 + V4012</li><li>Preços de 2024 · Unidade: R$</li></ul></div>'+
-    '<div class="met-item"><b>Eixo 6 — Anos de Estudo na Adm. Pública Municipal</b><ul><li>Variáveis: VD3005 + V4012 + V4014</li><li>Unidade: Anos</li></ul></div>'+
-    '<div class="met-item"><b>Eixo 7 — Domicílios c/ Esgotamento Sanitário</b><ul><li>Rede coletora ou fossa séptica</li><li>Disponível a partir de 2019 · Unidade: %</li></ul></div>'+
+    '<div class="met-item"><b>Eixo 1 - Média de Anos de Estudo da População</b><ul><li>Variável: VD3005</li><li>Unidade: Anos</li></ul></div>'+
+    '<div class="met-item"><b>Eixo 2 - Proporção de Ocupados como Profissionais das Ciências e Intelectuais</b><ul><li>Variável: VD4011</li><li>Unidade: %</li></ul></div>'+
+    '<div class="met-item"><b>Eixo 3 - Taxa de Desocupação</b><ul><li>% pessoas ≥ 14 anos sem trabalho buscando emprego</li><li>Unidade: %</li></ul></div>'+
+    '<div class="met-item"><b>Eixo 4 - Domicílios com Acesso à Internet</b><ul><li>Variável: S01029</li><li>Unidade: %</li></ul></div>'+
+    '<div class="met-item"><b>Eixo 5 - Rendimento Mensal no Setor Privado</b><ul><li>Variáveis: VD4020 + V4012</li><li>Preços de 2024 · Unidade: R$</li></ul></div>'+
+    '<div class="met-item"><b>Eixo 6 - Anos de Estudo na Adm. Pública Municipal</b><ul><li>Variáveis: VD3005 + V4012 + V4014</li><li>Unidade: Anos</li></ul></div>'+
+    '<div class="met-item"><b>Eixo 7 - Domicílios c/ Esgotamento Sanitário</b><ul><li>Rede coletora ou fossa séptica</li><li>Disponível a partir de 2019 · Unidade: %</li></ul></div>'+
     '</div></div>'+
     '<div class="card met-secao"><h3>Abrangências Territoriais</h3>'+
     '<p>Os filtros de abrangência permitem restringir a análise a recortes territoriais especiais da política regional: SUDENE, SUDECO, Semiárido, Amazônia Legal, Faixa de Fronteira, MATOPIBA, Amazônia Azul, Rotas de Integração e Cidades Intermediadoras.</p></div>'+

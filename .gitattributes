@@ -1,3 +1,1 @@
 # Git LFS — arquivos grandes de dados
-dados/det_serie_1.json filter=lfs diff=lfs merge=lfs -text
-dados/det_serie_2.json filter=lfs diff=lfs merge=lfs -text

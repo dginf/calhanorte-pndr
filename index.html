@@ -432,6 +432,15 @@ function toggleSB(){
   var pw=document.getElementById('pnad-year-wrap');
   if(pw) pw.style.display=isPnad?'block':'none';
   var isMun=S.view==='municipio';
+  // Ajustar ano mínimo na aba municipal (dados completos a partir de 2015)
+  var fAno=document.getElementById('f-ano');
+  if(fAno){
+    Array.from(fAno.options).forEach(function(opt){
+      opt.disabled=isMun&&+opt.value<2015;
+      opt.style.display=isMun&&+opt.value<2015?'none':'';
+    });
+    if(isMun&&S.ano<2015){S.ano=2015;fAno.value=2015;}
+  }
   ['f-rg','f-uf','f-tip','sg-sd','sg-su','sg-sm','sg-az','sg-ff','sg-mt','sg-aa','sg-ro','sg-ci',
    'f-ano','f-ini','f-fim','mun-wrap'].forEach(function(id){
     var el=document.getElementById(id);
@@ -831,6 +840,40 @@ function dlMunicipalXLSX(){
   downloadXLSX('PNDR_Municipal_2024.xlsx',rows,'Municípios');
 }
 
+function dlMunicipioSelecionado(fmt){
+  if(!S.munSel) return;
+  var mSel=MUNS.find(function(m){return m.i===S.munSel;});
+  if(!mSel) return;
+  var serieMun=MDET_SERIE[String(mSel.i)]||{};
+  var detFull=MDET[String(mSel.i)]||{};
+  // Coletar todos os indicadores disponíveis
+  var inds={};
+  for(var k in detFull) inds[k]=1;
+  for(var k2 in serieMun) inds[k2]=1;
+  var indIds=Object.keys(inds).map(Number).sort(function(a,b){return a-b;});
+  var anos=Object.keys(serieMun[String(indIds[0])]||{}).map(Number).sort(function(a,b){return a-b;});
+  if(!anos.length) anos=[ANO_MAX];
+  // Cabeçalho
+  var header=['Município','UF','Região','Tipologia','Código IBGE','Indicador','ID'].concat(anos);
+  var rows=[header];
+  indIds.forEach(function(id){
+    var m2=META[id]||{};
+    var nm=(m2.nm||'Ind '+id).trim();
+    var serie=serieMun[String(id)]||{};
+    var linha=[mSel.n,mSel.u,mSel.rg,mSel.tp,mSel.i,nm,id].concat(
+      anos.map(function(a){
+        var v=serie[String(a)];
+        if(v==null) v=a===ANO_MAX?(detFull[String(id)]||null):null;
+        return v!=null?v:'';
+      })
+    );
+    rows.push(linha);
+  });
+  var nm2=mSel.n.replace(/[^a-zA-Z0-9]/g,'_').substring(0,20);
+  if(fmt==='xlsx') downloadXLSX('PNDR_'+nm2+'.xlsx',rows,mSel.n.substring(0,31));
+  else downloadCSV('PNDR_'+nm2+'.csv',rows);
+}
+
 
 function dlComparativo(){
   var compostos = COMP_EIXOS.concat(COMP_OBJ);
@@ -1220,7 +1263,7 @@ function rPrincipal(main){
   main.innerHTML=
     '<div class="hero">'
     +'<h2>Painel de Indicadores da PNDR</h2>'
-    +'<p>Política Nacional de Desenvolvimento Regional · Série histórica 2013–2024</p>'
+    +'<p>Política Nacional de Desenvolvimento Regional · SDR / DGINF — Ministério da Integração e do Desenvolvimento Regional</p>'
     +'<div class="hero-search"><input type="text" id="hero-busca" placeholder="Busque um município..."><button id="hero-btn">→</button></div>'
     +'<div class="hero-res" id="hero-res"></div></div>'
     +'<div class="g3" style="margin-bottom:10px">'
@@ -1369,6 +1412,9 @@ function _renderMunicipio(main){
   for(var k in detFull) det[k]=detFull[k];
   
   var serieMun=MDET_SERIE[String(mSel.i)]||{};
+  if(Object.keys(serieMun).length===0) console.warn('MDET_SERIE vazio para ibge='+mSel.i);
+  else { var anosDisp2=Object.keys(serieMun[Object.keys(serieMun)[0]]||{});
+    console.log('MDET_SERIE ok: '+Object.keys(serieMun).length+' inds, anos='+anosDisp2.join(',')+', S.ano='+S.ano); }
   var anoStr=String(S.ano);
   for(var ind in serieMun){
     var vAno=serieMun[ind][anoStr];
@@ -1421,12 +1467,29 @@ function _renderMunicipio(main){
     +'<div class="card"><h2>Objetivos da PNDR</h2><div style="height:220px"><canvas id="cmro"></canvas></div></div>'
     +'</div>'
     +(Object.keys(serieMun).length?'<div class="card"><h2>Evolução Histórica dos Compostos · '+mSel.n+'</h2><div class="desc">Índices compostos 2013–'+ANO_MAX+' · selecione o ano de análise no filtro lateral</div><div style="height:260px"><canvas id="cmhist"></canvas></div></div>':'')
-    +'<div class="card"><h2>Eixos Estratégicos · 2024</h2>'
+    +'<div class="card"><h2>Eixos Estratégicos · '+S.ano+'</h2>'
     +'<div class="mdet-grid">'+EIXOS_DEF.map(mkCard).join('')+'</div></div>'
-    +'<div class="card"><h2>Objetivos da PNDR · 2024</h2>'
+    +'<div class="card"><h2>Objetivos da PNDR · '+S.ano+'</h2>'
     +'<div class="mdet-grid mdet-grid-obj">'+OBJ_DEF.map(mkCard).join('')+'</div></div>';
 
   
+  // Botões de download no cabeçalho
+  (function(){
+    var hdr=main.firstElementChild;
+    if(!hdr) return;
+    hdr.style.justifyContent='space-between';
+    var wrap=document.createElement('div');
+    wrap.style.cssText='display:flex;gap:6px;flex-shrink:0';
+    ['CSV','XLSX'].forEach(function(fmt){
+      var btn=document.createElement('button');
+      btn.className='btn-dl';
+      btn.textContent='⬇ '+fmt;
+      btn.onclick=(function(f){return function(){dlMunicipioSelecionado(f.toLowerCase());};})(fmt);
+      wrap.appendChild(btn);
+    });
+    hdr.appendChild(wrap);
+  })();
+
   dc('cmr');
   var rNms=EIXOS_DEF.map(function(e){return e.gnm.split('–')[0].trim();});
   charts['cmr']=new Chart(document.getElementById('cmr'),{type:'radar',data:{labels:rNms,datasets:[{

@@ -191,7 +191,7 @@ tr:hover td{background:#f0f5fb;}
 <h3>Filtros</h3>
 <div class="grp"><div class="gl">Região</div><select id="f-rg"><option value="all">Todas as regiões</option><option>Centro-Oeste</option><option>Nordeste</option><option>Norte</option><option>Sudeste</option><option>Sul</option></select></div>
 <div class="grp"><div class="gl">Estado</div><select id="f-uf"><option value="all">Todos os estados</option><option>Acre</option><option>Alagoas</option><option>Amapá</option><option>Amazonas</option><option>Bahia</option><option>Ceará</option><option>Distrito Federal</option><option>Espírito Santo</option><option>Goiás</option><option>Maranhão</option><option>Mato Grosso</option><option>Mato Grosso do Sul</option><option>Minas Gerais</option><option>Paraná</option><option>Paraíba</option><option>Pará</option><option>Pernambuco</option><option>Piauí</option><option>Rio Grande do Norte</option><option>Rio Grande do Sul</option><option>Rio de Janeiro</option><option>Rondônia</option><option>Roraima</option><option>Santa Catarina</option><option>Sergipe</option><option>São Paulo</option><option>Tocantins</option></select></div>
-<div class="grp"><div class="gl">Tipologia PNDR</div><select id="f-tip"><option value="all">Todas</option><option>Alta Renda e Alto Dinamismo</option><option>Alta Renda e Médio Dinamismo</option><option>Alta Renda e Baixo Dinamismo</option><option>Média Renda e Alto Dinamismo</option><option>Média Renda e Médio Dinamismo</option><option>Média Renda e Baixo Dinamismo</option><option>Baixa Renda e Alto Dinamismo</option><option>Baixa Renda e Médio Dinamismo</option><option>Baixa Renda e Baixo Dinamismo</option></select></div>
+<div class="grp"><div class="gl">Tipologia PNDR</div><select id="f-tip"><option value="all">Todas</option><option>Alta Renda</option><option>Média Renda e Alto Dinamismo</option><option>Média Renda e Médio Dinamismo</option><option>Média Renda e Baixo Dinamismo</option><option>Baixa Renda e Alto Dinamismo</option><option>Baixa Renda e Médio Dinamismo</option><option>Baixa Renda e Baixo Dinamismo</option></select></div>
 <div class="nb">
 <div class="gl">Abrangência</div>
 <div class="fr"><span>SUDENE</span><div class="seg" id="sg-sd"><button data-v="all" class="on">Todos</button><button data-v="1">Sim</button><button data-v="0">Não</button></div></div>
@@ -780,7 +780,7 @@ function dlEvolucaoXLSX(){
 function dlTipologia(){
   var m = META[S.ind]||{};
   var nm = (m.nm||'Indicador').trim();
-  var tps=['Alta Renda e Alto Dinamismo','Alta Renda e Médio Dinamismo','Alta Renda e Baixo Dinamismo',
+  var tps=['Alta Renda',
     'Média Renda e Alto Dinamismo','Média Renda e Médio Dinamismo','Média Renda e Baixo Dinamismo',
     'Baixa Renda e Alto Dinamismo','Baixa Renda e Médio Dinamismo','Baixa Renda e Baixo Dinamismo'];
   var sid = String(S.ind);
@@ -800,7 +800,7 @@ function dlTipologia(){
 }
 function dlTipologiaXLSX(){
   var m=META[S.ind]||{}; var nm=(m.nm||'Indicador').trim();
-  var tps=['Alta Renda e Alto Dinamismo','Alta Renda e Médio Dinamismo','Alta Renda e Baixo Dinamismo',
+  var tps=['Alta Renda',
     'Média Renda e Alto Dinamismo','Média Renda e Médio Dinamismo','Média Renda e Baixo Dinamismo',
     'Baixa Renda e Alto Dinamismo','Baixa Renda e Médio Dinamismo','Baixa Renda e Baixo Dinamismo'];
   var sid=String(S.ind);
@@ -1317,7 +1317,7 @@ function rTipologia(main){
       return rows.length?parseFloat((rows.reduce(function(s,d){return s+d.v;},0)/rows.length).toFixed(4)):null;
     });
   }
-  var tps=['Alta Renda e Alto Dinamismo','Alta Renda e Médio Dinamismo','Alta Renda e Baixo Dinamismo',
+  var tps=['Alta Renda',
     'Média Renda e Alto Dinamismo','Média Renda e Médio Dinamismo','Média Renda e Baixo Dinamismo',
     'Baixa Renda e Alto Dinamismo','Baixa Renda e Médio Dinamismo','Baixa Renda e Baixo Dinamismo'];
   if(S.tip!=='all') tps=[S.tip];
@@ -1349,9 +1349,9 @@ function rTipologia(main){
   dc('ctip');
   charts['ctip']=new Chart(document.getElementById('ctip'),{type:'bar',data:{labels:tps.map(function(t){return t.replace(' e ','\n');}),datasets:[{data:vals,backgroundColor:tps.map(function(t){return cTip(t)+'22';}),borderColor:tps.map(function(t){return cTip(t);}),borderWidth:2,borderRadius:4}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'#e8eaed'}},y:{grid:{display:false},ticks:{font:{size:10}}}}}});
   var nmsC=COMP_EIXOS.map(function(id){return nmC(id);});
-  var g3=[{label:'Alta Renda',pre:'Alta',cor:'#1B4FA8'},{label:'Média Renda',pre:'Média',cor:'#8E44AD'},{label:'Baixa Renda',pre:'Baixa',cor:'#C0392B'}];
+  var g3=[{label:'Alta Renda',pre:'Alta Renda',cor:'#1B4FA8'},{label:'Média Renda',pre:'Média',cor:'#8E44AD'},{label:'Baixa Renda',pre:'Baixa',cor:'#C0392B'}];
   dc('crad');
-  charts['crad']=new Chart(document.getElementById('crad'),{type:'radar',data:{labels:nmsC,datasets:g3.map(function(g){return {label:g.label,data:COMP_EIXOS.map(function(id){var sid2=String(id);if(temAbrang()){var mf2=munFilt().filter(function(m){return m.tp.indexOf(g.pre)===0&&m.d[sid2]!=null;});return mf2.length?parseFloat((mf2.reduce(function(s,m){return s+m.d[sid2];},0)/mf2.length).toFixed(4)):null;}var rs=DB.tipologia.filter(function(d){return d.mdata_id===id&&d.tp.indexOf(g.pre)===0;});return rs.length?avg(rs.map(function(d){return d.v;})):null;}),borderColor:g.cor,backgroundColor:g.cor+'15',borderWidth:2,pointRadius:3};})},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:10},boxWidth:8}}},scales:{r:{min:0,max:1,pointLabels:{font:{size:9}},ticks:{stepSize:0.2,font:{size:8}}}}}});
+  charts['crad']=new Chart(document.getElementById('crad'),{type:'radar',data:{labels:nmsC,datasets:g3.map(function(g){return {label:g.label,data:COMP_EIXOS.map(function(id){var sid2=String(id);if(temAbrang()){var mf2=munFilt().filter(function(m){return (g.pre==='Alta Renda'?m.tp===g.pre:m.tp.indexOf(g.pre)===0)&&m.d[sid2]!=null;});return mf2.length?parseFloat((mf2.reduce(function(s,m){return s+m.d[sid2];},0)/mf2.length).toFixed(4)):null;}var rs=DB.tipologia.filter(function(d){return d.mdata_id===id&&(g.pre==='Alta Renda'?d.tp===g.pre:d.tp.indexOf(g.pre)===0);});return rs.length?avg(rs.map(function(d){return d.v;})):null;}),borderColor:g.cor,backgroundColor:g.cor+'15',borderWidth:2,pointRadius:3};})},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:10},boxWidth:8}}},scales:{r:{min:0,max:1,pointLabels:{font:{size:9}},ticks:{stepSize:0.2,font:{size:8}}}}}});
   document.querySelectorAll('.kc').forEach(function(k){k.classList.toggle('active',+k.dataset.id===indTip);});
 }
 

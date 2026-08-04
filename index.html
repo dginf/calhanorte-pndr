@@ -590,11 +590,13 @@ function buildMap(containerId,ind,ano){
     if(v==null) return null;
     var t=vMax===vMin?0.5:(v-vMin)/(vMax-vMin);
     if(negativo) t=1-t;
-    
-    var r=Math.round(220+(27-220)*t);
-    var g=Math.round(233+(79-233)*t);
-    var b=Math.round(247+(168-247)*t);
-    return 'rgb('+r+','+g+','+b+')';
+    // Escala de calor: azul → ciano → verde → amarelo → vermelho
+    var r,g,b;
+    if(t<0.25){var s=t/0.25;r=0;g=Math.round(255*s);b=255;}
+    else if(t<0.5){var s=(t-0.25)/0.25;r=0;g=255;b=Math.round(255*(1-s));}
+    else if(t<0.75){var s=(t-0.5)/0.25;r=Math.round(255*s);g=255;b=0;}
+    else{var s=(t-0.75)/0.25;r=255;g=Math.round(255*(1-s));b=0;}
+    return 'rgba('+r+','+g+','+b+',0.85)';
   }
 
   var META_IND=META[id]||{};

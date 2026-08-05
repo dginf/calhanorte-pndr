@@ -1019,7 +1019,15 @@ function buildSB(){
   document.getElementById('f-rg').addEventListener('change',function(e){S.rg=e.target.value;S.uf='all';document.getElementById('f-uf').value='all';renderML();render();});
   document.getElementById('f-uf').addEventListener('change',function(e){S.uf=e.target.value;renderML();render();});
   document.getElementById('f-tip').addEventListener('change',function(e){S.tip=e.target.value;renderML();render();});
-  document.getElementById('f-ano').addEventListener('change',function(e){S.ano=+e.target.value;render();});
+  document.getElementById('f-ano').addEventListener('change',function(e){
+    S.ano=+e.target.value;
+    // Atualizar apenas os gráficos e o mapa sem reconstruir o layout
+    if(S.view==='evolucao_eixo'||S.view==='evolucao_obj'){
+      renderGraficos();
+    } else {
+      render();
+    }
+  });
   document.getElementById('f-ini').addEventListener('change',function(e){S.ini=+e.target.value;render();});
   document.getElementById('f-fim').addEventListener('change',function(e){S.fim=+e.target.value;render();});
   var pnadSb=document.getElementById('pnad-ano-ini-sb');

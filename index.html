@@ -602,6 +602,9 @@ function buildMap(containerId,ind,ano){
 
   var META_IND=META[id]||{};
   var nmInd2=(META_IND.nm||('Indicador '+id)).trim();
+  var _indSem2024=[9,11,16,29];
+  var _indAnos={9:2023,11:2023,16:2023,29:2023};
+  var _anoRef=_indSem2024.indexOf(id)>=0?_indAnos[id]:ANO_MAX;
 
   
   var tip=document.getElementById('map-tip');
@@ -620,6 +623,42 @@ function buildMap(containerId,ind,ano){
   svg.style.height='260px';
 
   
+  // Grupo de zoom/pan
+  var _zoom={scale:1,tx:0,ty:0,dragging:false,sx:0,sy:0};
+  var _zoomG=document.createElementNS(svgNs,'g');
+  svg.appendChild(_zoomG);
+  function _applyTransform(){
+    _zoomG.setAttribute('transform','translate('+_zoom.tx+','+_zoom.ty+') scale('+_zoom.scale+')');
+  }
+  svg.addEventListener('wheel',function(e){
+    e.preventDefault();
+    var rect=svg.getBoundingClientRect();
+    var mx=(e.clientX-rect.left)/rect.width*500;
+    var my=(e.clientY-rect.top)/rect.height*380;
+    var delta=e.deltaY>0?0.85:1.18;
+    var ns=Math.max(0.8,Math.min(12,_zoom.scale*delta));
+    _zoom.tx=mx-(ns/_zoom.scale)*(mx-_zoom.tx);
+    _zoom.ty=my-(ns/_zoom.scale)*(my-_zoom.ty);
+    _zoom.scale=ns;_applyTransform();
+  },{passive:false});
+  svg.addEventListener('mousedown',function(e){
+    _zoom.dragging=true;_zoom.sx=e.clientX-_zoom.tx;_zoom.sy=e.clientY-_zoom.ty;
+    svg.style.cursor='grabbing';
+  });
+  window.addEventListener('mousemove',function(e){
+    if(!_zoom.dragging)return;
+    _zoom.tx=e.clientX-_zoom.sx;_zoom.ty=e.clientY-_zoom.sy;_applyTransform();
+  });
+  window.addEventListener('mouseup',function(){_zoom.dragging=false;svg.style.cursor='grab';});
+  svg.style.cursor='grab';
+  el.style.position='relative';
+  var _btnR=document.createElement('button');
+  _btnR.textContent='⊙ Reset';
+  _btnR.title='Resetar zoom';
+  _btnR.style.cssText='position:absolute;top:6px;right:6px;border:1px solid #ccc;background:#fff;border-radius:5px;padding:2px 8px;font-size:10.5px;cursor:pointer;color:#666;font-family:inherit;z-index:10';
+  _btnR.onclick=function(){_zoom={scale:1,tx:0,ty:0,dragging:false,sx:0,sy:0};_applyTransform();};
+  el.appendChild(_btnR);
+
   Object.keys(PATHS).forEach(function(nome){
     var d=PATHS[nome];
     var path=document.createElementNS(svgNs,'path');
@@ -627,7 +666,7 @@ function buildMap(containerId,ind,ano){
     path.setAttribute('fill','#f0f2f5');
     path.setAttribute('stroke','#c8cdd6');
     path.setAttribute('stroke-width','0.6');
-    svg.appendChild(path);
+    _zoomG.appendChild(path);
   });
 
   
@@ -664,12 +703,19 @@ function buildMap(containerId,ind,ano){
       var mSel2=MUNS.find(function(m){return String(m.i)===ibge;});
       if(mSel2){S.munSel=mSel2.i;irPara('municipio');}
     });
-    svg.appendChild(circle);
+    _zoomG.appendChild(circle);
   });
 
   el.appendChild(svg);
 
-  
+  // Badge de dado desatualizado
+  if(_indSem2024.indexOf(id)>=0){
+    var badge=document.createElement('div');
+    badge.style.cssText='display:inline-flex;align-items:center;gap:5px;background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:6px;padding:4px 10px;font-size:11.5px;font-weight:600;margin-bottom:6px;margin-top:4px';
+    badge.innerHTML='⚠ Dados de '+_anoRef+' (mais recente disponível para este indicador)';
+    el.appendChild(badge);
+  }
+
   if(vals.length){
     var leg=document.createElement('div');
     leg.className='map-legend';

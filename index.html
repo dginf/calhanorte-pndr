@@ -1252,6 +1252,15 @@ function renderGraficosComuns(){
   buildAbrangChart('ca',S.ind);
   
   if(typeof buildMap==='function') buildMap('brasil-map-main',S.ind,S.ano);
+  // Atualizar subtítulo do mapa
+  var _mapDesc=document.querySelector('#brasil-map-main');
+  if(_mapDesc){
+    var _mapCard=_mapDesc.closest?_mapDesc.closest('.map-card'):_mapDesc.parentNode;
+    if(_mapCard){
+      var _descEl=_mapCard.querySelector('.desc');
+      if(_descEl) _descEl.textContent='Valor do indicador selecionado · ano '+S.ano+' · clique num município para ver o detalhe';
+    }
+  }
 
   
   dc('cb');

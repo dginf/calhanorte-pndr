@@ -568,7 +568,7 @@ function buildMap(containerId,ind,ano){
     _detCompCarregado=true;
     fetch('dados/det_serie_comp.json').then(function(r){return r.json();})
     .then(function(d){MDET_COMP=d;buildMap(containerId,ind,ano);})
-    .catch(function(e){console.warn('det_serie_comp não carregado:',e);_detCompCarregado=false;});
+    .catch(function(e){console.warn('det_serie_comp não carregado:',e);});
     return;
   }
   if(!el||typeof MUN_XY==='undefined'||typeof PATHS==='undefined') return;
@@ -585,7 +585,7 @@ function buildMap(containerId,ind,ano){
   
   
   var valMap={};
-  var _useComp=COMP_IDS2.indexOf(id)>=0&&Object.keys(MDET_COMP).length>0;
+  var _useComp=COMP_IDS.indexOf(id)>=0&&Object.keys(MDET_COMP).length>0;
   munsVisiveis.forEach(function(m){
     var v;
     if(_useComp){
@@ -726,8 +726,7 @@ function buildMap(containerId,ind,ano){
   el.appendChild(svg);
 
   // Badge informativo
-  var COMP_IDS3=[5,10,15,20,25,30,35,62,63,64,65];
-  var _isComp3=COMP_IDS3.indexOf(id)>=0;
+  var _isComp3=COMP_IDS.indexOf(id)>=0;
   if(_indSem2024.indexOf(id)>=0){
     var badge=document.createElement('div');
     badge.style.cssText='display:inline-flex;align-items:center;gap:5px;background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:6px;padding:4px 10px;font-size:11.5px;font-weight:600;margin-bottom:6px;margin-top:4px';

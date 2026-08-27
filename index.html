@@ -203,7 +203,7 @@ tr:hover td{background:#f0f5fb;}
 <div class="fr"><span>Amazônia Azul</span><div class="seg" id="sg-aa"><button data-v="all" class="on">Todos</button><button data-v="1">Sim</button><button data-v="0">Não</button></div></div>
 <div class="fr"><span>Rotas de Integração</span><div class="seg" id="sg-ro"><button data-v="all" class="on">Todos</button><button data-v="1">Sim</button><button data-v="0">Não</button></div></div>
 <div class="fr"><span>Cid. Intermediadoras</span><div class="seg" id="sg-ci"><button data-v="all" class="on">Todos</button><button data-v="1">Sim</button><button data-v="0">Não</button></div></div>
-<div class="grp"><div class="gl" style="color:#8B0000;font-weight:600">Calha Norte</div><div class="seg" id="sg-cn"><button data-v="all">Todos</button><button data-v="1" class="on">Sim</button><button data-v="0">Não</button></div></div>
+<div class="fr"><span style="color:#8B0000;font-weight:700">Calha Norte</span><div class="seg" id="sg-cn"><button data-v="all">Todos</button><button data-v="1" class="on">Sim</button><button data-v="0">Não</button></div></div>
 </div>
 <div id="pnad-year-wrap" style="display:none">
 <div class="div"></div>
@@ -450,7 +450,7 @@ function toggleSB(){
    'f-ano','f-ini','f-fim','mun-wrap'].forEach(function(id){
     var el=document.getElementById(id);
     if(el){
-      var parent=el.closest?el.closest('.grp,.nb,.div'):el.parentNode;
+      var parent=el.closest?el.closest('.grp,.nb,.div,.fr'):el.parentNode;
       if(parent){
         if(isPnad) parent.style.display='none';
         

@@ -1078,7 +1078,7 @@ function renderML(){
   var filt=munFilt().filter(function(m){return !busca||m.n.toLowerCase().indexOf(busca)>=0||m.u.toLowerCase().indexOf(busca)>=0;});
   document.getElementById('mun-count').textContent=filt.length+' município(s)';
   var list=document.getElementById('mun-list');
-  list.innerHTML=filt.slice(0,60).map(function(m){return '<div data-ibge="'+m.i+'"'+(S.munSel===m.i?' class="sel"':'')+'>'+m.n+' <span style="color:var(--soft)">('+m.u+')</span></div>';}).join('');
+  list.innerHTML=filt.map(function(m){return '<div data-ibge="'+m.i+'"'+(S.munSel===m.i?' class="sel"':'')+'>'+m.n+' <span style="color:var(--soft)">('+m.u+')</span></div>';}).join('');
   list.querySelectorAll('div').forEach(function(d){d.addEventListener('click',function(){S.munSel=+d.dataset.ibge;renderML();render();});});
   var chip=document.getElementById('mun-chips');
   if(S.munSel){var ms=MUNS.find(function(m){return m.i===S.munSel;});chip.innerHTML=ms?'<div style="margin-top:5px"><span class="chip">'+ms.n+' ('+ms.u+')<button onclick="S.munSel=null;renderML();render()">✕</button></span></div>':'';}
@@ -1479,7 +1479,7 @@ function rMunicipio(main){
 function _renderMunicipio(main){
   var mSel=S.munSel?MUNS.find(function(m){return m.i===S.munSel;}):null;
   if(!mSel){
-    var tabRows=munFilt().filter(function(m){return !S.munBusca||m.n.toLowerCase().indexOf(S.munBusca)>=0;}).slice(0,40).map(function(m){
+    var tabRows=munFilt().filter(function(m){return !S.munBusca||m.n.toLowerCase().indexOf(S.munBusca)>=0;}).map(function(m){
       return '<tr style="cursor:pointer" onclick="S.munSel='+m.i+';renderML();render()"><td><b>'+m.n+'</b></td><td>'+m.u+'</td><td style="font-size:10.5px">'+m.tp+'</td>'
         +'<td>'+(m.d['62']!=null?m.d['62'].toFixed(3):'-')+'</td>'
         +'<td>'+(m.d['63']!=null?m.d['63'].toFixed(3):'-')+'</td>'

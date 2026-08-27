@@ -1483,9 +1483,15 @@ function _renderMunicipio(main){
       return '<tr style="cursor:pointer" onclick="S.munSel='+m.i+';renderML();render()"><td><b>'+m.n+'</b></td><td>'+m.u+'</td><td style="font-size:10.5px">'+m.tp+'</td>'
         +'<td>'+(m.d['62']!=null?m.d['62'].toFixed(3):'-')+'</td>'
         +'<td>'+(m.d['63']!=null?m.d['63'].toFixed(3):'-')+'</td>'
+        +'<td>'+(m.d['64']!=null?m.d['64'].toFixed(3):'-')+'</td>'
+        +'<td>'+(m.d['65']!=null?m.d['65'].toFixed(3):'-')+'</td>'
+        +'<td>'+(m.d['15']!=null?m.d['15'].toFixed(3):'-')+'</td>'
+        +'<td>'+(m.d['10']!=null?m.d['10'].toFixed(3):'-')+'</td>'
         +'<td>'+(m.d['5']!=null?m.d['5'].toFixed(3):'-')+'</td>'
+        +'<td>'+(m.d['20']!=null?m.d['20'].toFixed(3):'-')+'</td>'
         +'<td>'+(m.d['25']!=null?m.d['25'].toFixed(3):'-')+'</td>'
-        +'<td>'+(m.d['20']!=null?m.d['20'].toFixed(3):'-')+'</td></tr>';
+        +'<td>'+(m.d['35']!=null?m.d['35'].toFixed(3):'-')+'</td>'
+        +'<td>'+(m.d['30']!=null?m.d['30'].toFixed(3):'-')+'</td></tr>';
     }).join('');
     main.innerHTML=
       '<div class="tb-top"><div class="tb"><h1>Análise Municipal</h1>'
@@ -1494,7 +1500,7 @@ function _renderMunicipio(main){
       +'<div class="card"><h2>Municípios no recorte · compostos 2024</h2>'
       +'<div class="desc">Clique numa linha para ver o detalhe</div>'
       +'<div style="overflow-x:auto"><table><thead><tr><th>Município</th><th>UF</th><th>Tipologia</th>'
-      +'<th>Obj.1</th><th>Obj.2</th><th>Educação</th><th>Des.Social</th><th>Infraestrutura</th></tr></thead>'
+      +'<th>Obj.1</th><th>Obj.2</th><th>Obj.3</th><th>Obj.4</th><th>Eixo I</th><th>Eixo II</th><th>Eixo III</th><th>Eixo IV</th><th>Eixo V</th><th>Eixo VI</th><th>Eixo VII</th></tr></thead>'
       +'<tbody>'+tabRows+'</tbody></table></div></div>';
     return;
   }

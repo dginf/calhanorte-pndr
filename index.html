@@ -203,7 +203,7 @@ tr:hover td{background:#f0f5fb;}
 <div class="fr"><span>Amazônia Azul</span><div class="seg" id="sg-aa"><button data-v="all" class="on">Todos</button><button data-v="1">Sim</button><button data-v="0">Não</button></div></div>
 <div class="fr"><span>Rotas de Integração</span><div class="seg" id="sg-ro"><button data-v="all" class="on">Todos</button><button data-v="1">Sim</button><button data-v="0">Não</button></div></div>
 <div class="fr"><span>Cid. Intermediadoras</span><div class="seg" id="sg-ci"><button data-v="all" class="on">Todos</button><button data-v="1">Sim</button><button data-v="0">Não</button></div></div>
-<div class="fr"><span style="color:#8B0000;font-weight:600">Calha Norte</span><div class="seg" id="sg-cn"><button data-v="all">Todos</button><button data-v="1" class="on">Sim</button><button data-v="0">Não</button></div></div>
+<div class="grp"><div class="gl" style="color:#8B0000;font-weight:600">Calha Norte</div><div class="seg" id="sg-cn"><button data-v="all">Todos</button><button data-v="1" class="on">Sim</button><button data-v="0">Não</button></div></div>
 </div>
 <div id="pnad-year-wrap" style="display:none">
 <div class="div"></div>
@@ -347,7 +347,7 @@ function bNivel(v,ind){
   return '<span class="bn '+b+'" title="'+tip+'">'+l+'</span>';
 }
 function cTip(tp){return tp.indexOf('Alta')===0?'#1B4FA8':tp.indexOf('Média')===0?'#8E44AD':'#C0392B';}
-function temAbrang(){return S.ab.sd!=='all'||S.ab.sm!=='all'||S.ab.az!=='all'||S.ab.ff!=='all'||S.ab.mt!=='all'||S.ab.aa!=='all'||S.ab.ro!=='all'||S.ab.su!=='all'||S.ab.ci!=='all';}
+function temAbrang(){return S.ab.sd!=='all'||S.ab.sm!=='all'||S.ab.az!=='all'||S.ab.ff!=='all'||S.ab.mt!=='all'||S.ab.aa!=='all'||S.ab.ro!=='all'||S.ab.su!=='all'||S.ab.ci!=='all'||S.ab.cn!=='all';}
 
 function getSerie(ind){
   var id=ind!==undefined?ind:S.ind;

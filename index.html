@@ -1793,7 +1793,7 @@ function rMetodologia(main){
 function rCalha(main){
   main.innerHTML='<div class="tb-top"><div class="tb"><h1>Calha Norte</h1>'+
     '<div class="sub">Análise territorial do Programa Calha Norte · '+MUNS.filter(function(m){return CALHA_NORTE_IBGES.has(m.i);}).length+' municípios</div></div></div>'+
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">'+
+    '<div style="display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:16px">'+
       '<div class="card"><h2>Distribuição por Coorte de Entrada</h2><div style="height:220px"><canvas id="cn-bar"></canvas></div></div>'+
       '<div class="card"><h2>Perfil Médio por Coorte</h2><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="font-size:11px;color:var(--soft)">Coorte:</span><div id="cn-radar-btns" style="display:flex;gap:4px;flex-wrap:wrap"></div></div><div style="height:220px"><canvas id="cn-radar"></canvas></div></div>'+
     '<div class="card"><h2>Comparativo por Eixo — todas as coortes</h2><div style="height:260px"><canvas id="cn-barras"></canvas></div></div>'+

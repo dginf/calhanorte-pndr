@@ -204,7 +204,7 @@ tr:hover td{background:#f0f5fb;}
 <div class="fr"><span>Rotas de Integração</span><div class="seg" id="sg-ro"><button data-v="all" class="on">Todos</button><button data-v="1">Sim</button><button data-v="0">Não</button></div></div>
 <div class="fr"><span>Cid. Intermediadoras</span><div class="seg" id="sg-ci"><button data-v="all" class="on">Todos</button><button data-v="1">Sim</button><button data-v="0">Não</button></div></div>
 <div class="fr"><span style="color:#8B0000;font-weight:700">Calha Norte</span><div class="seg" id="sg-cn"><button data-v="all">Todos</button><button data-v="1" class="on">Sim</button><button data-v="0">Não</button></div></div>
-<div class="grp"><div class="gl" style="color:#8B0000">Entrada no PCN</div><div class="seg" id="sg-pcn-ano" style="flex-wrap:wrap;height:auto"><button data-v="all" class="on">Todos</button><button data-v="1985">1985</button><button data-v="2004">2004</button><button data-v="2006">2006</button><button data-v="2016">2016</button><button data-v="2019">2019</button><button data-v="2020">2020</button><button data-v="2021">2021</button><button data-v="2022">2022</button></div></div>
+<div class="grp"><div class="gl" style="color:#8B0000">Entrada no PCN</div><div class="seg" id="sg-pcnano" style="flex-wrap:wrap;height:auto"><button data-v="all" class="on">Todos</button><button data-v="1985">1985</button><button data-v="2004">2004</button><button data-v="2006">2006</button><button data-v="2016">2016</button><button data-v="2019">2019</button><button data-v="2020">2020</button><button data-v="2021">2021</button><button data-v="2022">2022</button></div></div>
 </div>
 <div id="pnad-year-wrap" style="display:none">
 <div class="div"></div>
@@ -449,7 +449,7 @@ function toggleSB(){
     });
     if(isMun&&S.ano<2015){S.ano=2015;fAno.value=2015;}
   }
-  ['f-rg','f-uf','f-tip','sg-sd','sg-su','sg-sm','sg-az','sg-ff','sg-mt','sg-aa','sg-ro','sg-ci','sg-cn','sg-pcn-ano',
+  ['f-rg','f-uf','f-tip','sg-sd','sg-su','sg-sm','sg-az','sg-ff','sg-mt','sg-aa','sg-ro','sg-ci','sg-cn','sg-pcnano',
    'f-ano','f-ini','f-fim','mun-wrap'].forEach(function(id){
     var el=document.getElementById(id);
     if(el){

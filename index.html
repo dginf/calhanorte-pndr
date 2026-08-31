@@ -1795,7 +1795,8 @@ function rCalha(main){
     '<div class="sub">Análise territorial do Programa Calha Norte · '+MUNS.filter(function(m){return CALHA_NORTE_IBGES.has(m.i);}).length+' municípios</div></div></div>'+
     '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">'+
       '<div class="card"><h2>Distribuição por Coorte de Entrada</h2><div style="height:220px"><canvas id="cn-bar"></canvas></div></div>'+
-      '<div class="card"><h2>Perfil Médio por Coorte</h2><div style="height:220px"><canvas id="cn-radar"></canvas></div></div>'+
+      '<div class="card"><h2>Perfil Médio por Coorte</h2><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="font-size:11px;color:var(--soft)">Coorte:</span><div id="cn-radar-btns" style="display:flex;gap:4px;flex-wrap:wrap"></div></div><div style="height:220px"><canvas id="cn-radar"></canvas></div></div>'+
+    '<div class="card"><h2>Comparativo por Eixo — todas as coortes</h2><div style="height:260px"><canvas id="cn-barras"></canvas></div></div>'+
     '</div>'+
     '<div class="card" style="margin-bottom:16px"><h2>Mapa — Ano de Entrada no PCN</h2>'+
       '<div id="cn-legenda" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px"></div>'+
@@ -1817,25 +1818,78 @@ function rCalha(main){
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
       scales:{y:{beginAtZero:true,grid:{color:'#e8eaed'}},x:{grid:{display:false}}}}});
 
-  // ── Radar por coorte ──────────────────────────────────────────────────────
+  // ── Radar interativo por coorte ──────────────────────────────────────────
   dc('cn-radar');
   var COMP_RADAR=[{id:'5',nm:'Educação'},{id:'15',nm:'Des.Produtivo'},{id:'10',nm:'C&T'},
     {id:'20',nm:'Infraestr.'},{id:'25',nm:'Des.Social'},{id:'35',nm:'Governativas'},{id:'30',nm:'Meio Amb.'}];
-  var radarDatasets=ANOS_PCN.map(function(ano){
+  // Calcular média geral do Calha Norte (referência)
+  var mediaGeralCN=COMP_RADAR.map(function(c){
+    var vs=munsCN.map(function(m){return m.d[c.id];}).filter(function(v){return v!=null;});
+    return vs.length?parseFloat((vs.reduce(function(s,v){return s+v;},0)/vs.length).toFixed(3)):0;
+  });
+  // Calcular dados por coorte
+  var dadosCoorte={};
+  ANOS_PCN.forEach(function(ano){
     var grupo=munsCN.filter(function(m){return CALHA_NORTE_ANO[m.i]===ano;});
-    var vals=COMP_RADAR.map(function(c){
+    dadosCoorte[ano]=COMP_RADAR.map(function(c){
       var vs=grupo.map(function(m){return m.d[c.id];}).filter(function(v){return v!=null;});
       return vs.length?parseFloat((vs.reduce(function(s,v){return s+v;},0)/vs.length).toFixed(3)):0;
     });
-    var cor=CORES_COORTE[ano]||'#999';
-    return {label:String(ano),data:vals,borderColor:cor,backgroundColor:cor.replace(')',',0.08)').replace('rgb','rgba'),
-      borderWidth:1.5,pointRadius:2};
   });
-  charts['cn-radar']=new Chart(document.getElementById('cn-radar'),{type:'radar',
-    data:{labels:COMP_RADAR.map(function(c){return c.nm;}),datasets:radarDatasets},
+  var _anoRadar=ANOS_PCN[0];
+  function buildRadar(ano){
+    _anoRadar=ano;
+    var cor=CORES_COORTE[ano]||'#999';
+    var datasets=[
+      {label:'Média CN',data:mediaGeralCN,borderColor:'#ccc',borderDash:[4,3],
+       backgroundColor:'rgba(200,200,200,0.05)',borderWidth:1.5,pointRadius:1},
+      {label:String(ano)+' ('+munsCN.filter(function(m){return CALHA_NORTE_ANO[m.i]===ano;}).length+' mun.)',
+       data:dadosCoorte[ano],borderColor:cor,
+       backgroundColor:cor+'22',borderWidth:2,pointRadius:3}
+    ];
+    if(charts['cn-radar']){
+      charts['cn-radar'].data.datasets=datasets;
+      charts['cn-radar'].update();
+    } else {
+      charts['cn-radar']=new Chart(document.getElementById('cn-radar'),{type:'radar',
+        data:{labels:COMP_RADAR.map(function(c){return c.nm;}),datasets:datasets},
+        options:{responsive:true,maintainAspectRatio:false,
+          scales:{r:{min:0,max:1,ticks:{display:false},grid:{color:'#e0e0e0'}}},
+          plugins:{legend:{position:'bottom',labels:{font:{size:10},boxWidth:10}}}}});
+    }
+    // Atualizar botões
+    document.getElementById('cn-radar-btns').querySelectorAll('button').forEach(function(b){
+      b.style.fontWeight=+b.dataset.ano===ano?'700':'400';
+      b.style.borderWidth=+b.dataset.ano===ano?'2px':'1px';
+    });
+  }
+  // Criar botões de seleção de coorte
+  var btnsEl=document.getElementById('cn-radar-btns');
+  ANOS_PCN.forEach(function(ano){
+    var btn=document.createElement('button');
+    btn.textContent=String(ano);
+    btn.dataset.ano=ano;
+    btn.style.cssText='border:1px solid '+(CORES_COORTE[ano]||'#999')+';background:transparent;color:'+(CORES_COORTE[ano]||'#999')+';border-radius:4px;padding:2px 7px;font-size:10px;cursor:pointer;font-family:inherit';
+    btn.onclick=function(){buildRadar(ano);};
+    btnsEl.appendChild(btn);
+  });
+  buildRadar(ANOS_PCN[0]);
+
+  // ── Barras agrupadas: eixos × coortes ────────────────────────────────────
+  dc('cn-barras');
+  var barDatasets=ANOS_PCN.map(function(ano){
+    return {label:String(ano),
+      data:COMP_RADAR.map(function(c){return dadosCoorte[ano][COMP_RADAR.indexOf(c)];}),
+      backgroundColor:(CORES_COORTE[ano]||'#999')+'CC',
+      borderColor:CORES_COORTE[ano]||'#999',
+      borderWidth:1,borderRadius:2};
+  });
+  charts['cn-barras']=new Chart(document.getElementById('cn-barras'),{type:'bar',
+    data:{labels:COMP_RADAR.map(function(c){return c.nm;}),datasets:barDatasets},
     options:{responsive:true,maintainAspectRatio:false,
-      scales:{r:{min:0,max:1,ticks:{display:false},grid:{color:'#e0e0e0'}}},
-      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:8}}}}});
+      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:8}}},
+      scales:{x:{grid:{display:false}},y:{min:0,max:1,grid:{color:'#e8eaed'},
+        ticks:{font:{size:10}}}}}});
 
   // ── Mapa por ano de entrada ───────────────────────────────────────────────
   var legEl=document.getElementById('cn-legenda');

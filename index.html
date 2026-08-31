@@ -185,7 +185,7 @@ tr:hover td{background:#f0f5fb;}
 <body>
 <header><div class="dh"><h1>Painel de Indicadores da PNDR</h1><p>Política Nacional de Desenvolvimento Regional · SDR / DGINF — Ministério da Integração e do Desenvolvimento Regional</p></div></header>
 <nav><a data-view="principal" class="active">Principal</a><a data-view="evolucao_obj">Evolução dos Objetivos</a><a data-view="evolucao_eixo">Evolução dos Eixos</a><a data-view="tipologia">Por Tipologia</a><a data-view="municipio">Análise Municipal</a><a data-view="comparativo">Comparativo</a><a data-view="pnad">PNAD Contínua</a>
-<a data-view="metodologia">Metodologia</a><a data-view="calha" style="color:#8B0000;font-weight:600">Calha Norte</a></nav>
+<a data-view="metodologia">Metodologia</a><a data-view="calha" style="color:#8B0000;font-weight:600">Calha Norte</a><a data-view="ibrcrm">IBrCRM</a></nav>
 <div class="layout">
 <aside class="sb" id="sb">
 <h3>Filtros</h3>
@@ -250,6 +250,8 @@ var CALHA_NORTE_ANO={1100015:2004,1100023:2006,1100031:2004,1100049:2006,1100056
 var DB={serie:[],tipologia:[],estados:[],recortes:[],meta:{}};
 var MUNS=[],MDET={},MDET_SERIE={},MDET_COMP={},PERC={},NR={},PNAD={},PATHS={},MUN_XY={};
 var _detSerieCarregado=false;
+var IBRCRM={};
+var _ibrcrmCarregado=false;
 var _detCompCarregado=false;
 
 function carregarDados(){
@@ -1122,6 +1124,7 @@ function render(){
   else if(v==='comparativo')rComparativo(main);
   else if(v==='pnad')rPnad(main);
   else if(v==='calha')rCalha(main);
+  else if(v==='ibrcrm')rIbrcrm(main);
   else if(v==='metodologia')rMetodologia(main);
   else if(v==='metodologia')rMetodologia(main);
 }
@@ -1986,6 +1989,201 @@ function rCalha(main){
     document.getElementById('cn-evol').parentNode.innerHTML='<div class="desc" style="padding:40px;text-align:center">Entre na aba Análise Municipal primeiro para carregar a série histórica</div>';
   }
 }
+
+function rIbrcrm(main){
+  // Carregar dados sob demanda
+  if(!_ibrcrmCarregado){
+    _ibrcrmCarregado=true;
+    var loading=document.getElementById('loading');
+    if(loading) loading.style.display='flex';
+    fetch('dados/ibrcrm_cn.json').then(function(r){return r.json();})
+    .then(function(d){
+      IBRCRM=d;
+      if(loading) loading.style.display='none';
+      rIbrcrm(main);
+    }).catch(function(e){
+      _ibrcrmCarregado=false;
+      if(loading) loading.style.display='none';
+      console.error('Erro ao carregar IBrCRM:',e);
+    });
+    return;
+  }
+
+  var EIXOS_IB=[
+    {k:'g',nm:'Geral',cor:'#1B4FA8'},
+    {k:'a',nm:'Ambiental',cor:'#2C7A4B'},
+    {k:'s',nm:'Social',cor:'#8E44AD'},
+    {k:'f',nm:'Infraestrutura',cor:'#117A8B'},
+    {k:'p',nm:'Produtivo',cor:'#D35400'},
+    {k:'n',nm:'Institucional',cor:'#1A5276'},
+    {k:'e',nm:'Educação',cor:'#C0392B'},
+    {k:'v',nm:'Inovação',cor:'#B7950B'}
+  ];
+  var ANO_IB='2023';
+  var munsCN=munFilt();
+
+  // KPIs — médias do Calha Norte no último ano
+  var kpiHtml=EIXOS_IB.map(function(ei){
+    var vals=munsCN.map(function(m){
+      var d=IBRCRM[String(m.i)];
+      return d&&d[ANO_IB]?d[ANO_IB][ei.k]:null;
+    }).filter(function(v){return v!=null;});
+    var media=vals.length?parseFloat((vals.reduce(function(s,v){return s+v;},0)/vals.length).toFixed(3)):null;
+    return '<div class="card" style="padding:14px 18px;border-left:4px solid '+ei.cor+'">'+
+      '<div style="font-size:11px;font-weight:600;color:var(--soft);text-transform:uppercase;letter-spacing:.05em">'+ei.nm+'</div>'+
+      '<div style="font-size:28px;font-weight:700;color:'+ei.cor+'">'+
+        (media!=null?media.toFixed(3):'—')+'</div>'+
+      '<div style="font-size:11px;color:var(--soft)">Média Calha Norte · '+ANO_IB+'</div>'+
+      '</div>';
+  }).join('');
+
+  main.innerHTML=
+    '<div class="tb-top"><div class="tb"><h1>IBrCRM — Calha Norte</h1>'+
+      '<div class="sub">Índice Brasileiro de Competitividade Regional Municipal · '+munsCN.length+' municípios · série 2010–2023</div></div></div>'+
+    '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px">'+kpiHtml+'</div>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">'+
+      '<div class="card"><h2>Evolução do IBrCRM Geral · Calha Norte</h2>'+
+        '<div style="height:240px"><canvas id="ib-evol"></canvas></div></div>'+
+      '<div class="card"><h2>Perfil por Subíndice · '+ANO_IB+'</h2>'+
+        '<div style="height:240px"><canvas id="ib-radar"></canvas></div></div>'+
+    '</div>'+
+    '<div class="card"><h2>Municípios do Calha Norte — IBrCRM '+ANO_IB+'</h2>'+
+      '<div style="font-size:12px;color:var(--soft);margin-bottom:8px">Clique num município para ver o detalhe dos subíndices</div>'+
+      '<div style="overflow-x:auto"><table id="ib-table">'+
+        '<thead><tr><th>Município</th><th>UF</th><th>Geral</th><th>Ambiental</th><th>Social</th>'+
+        '<th>Infra.</th><th>Produtivo</th><th>Institucional</th><th>Educação</th><th>Inovação</th></tr></thead>'+
+        '<tbody id="ib-tbody"></tbody></table></div></div>'+
+    '<div id="ib-detalhe"></div>';
+
+  // ── Evolução geral do Calha Norte ─────────────────────────────────────────
+  dc('ib-evol');
+  var anosIb=['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021','2022','2023'];
+  var evolData=anosIb.map(function(a){
+    var vals=munsCN.map(function(m){
+      var d=IBRCRM[String(m.i)];
+      return d&&d[a]?d[a].g:null;
+    }).filter(function(v){return v!=null;});
+    return vals.length?parseFloat((vals.reduce(function(s,v){return s+v;},0)/vals.length).toFixed(3)):null;
+  });
+  charts['ib-evol']=new Chart(document.getElementById('ib-evol'),{type:'line',
+    data:{labels:anosIb,datasets:[{label:'IBrCRM Geral — Calha Norte',data:evolData,
+      borderColor:'#1B4FA8',backgroundColor:'rgba(27,79,168,0.08)',
+      borderWidth:2,pointRadius:3,fill:true,tension:0.3,spanGaps:true}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{x:{grid:{display:false}},y:{min:0,max:1,grid:{color:'#e8eaed'}}}}});
+
+  // ── Radar de subíndices ───────────────────────────────────────────────────
+  dc('ib-radar');
+  var radarEixos=EIXOS_IB.slice(1); // sem geral
+  var radarVals=radarEixos.map(function(ei){
+    var vals=munsCN.map(function(m){
+      var d=IBRCRM[String(m.i)];
+      return d&&d[ANO_IB]?d[ANO_IB][ei.k]:null;
+    }).filter(function(v){return v!=null;});
+    return vals.length?parseFloat((vals.reduce(function(s,v){return s+v;},0)/vals.length).toFixed(3)):null;
+  });
+  charts['ib-radar']=new Chart(document.getElementById('ib-radar'),{type:'radar',
+    data:{labels:radarEixos.map(function(e){return e.nm;}),
+      datasets:[{label:'Média Calha Norte',data:radarVals,
+        borderColor:'#1B4FA8',backgroundColor:'rgba(27,79,168,0.1)',
+        borderWidth:2,pointRadius:3}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{r:{min:0,max:1,ticks:{display:false},grid:{color:'#e0e0e0'}}},
+      plugins:{legend:{display:false}}}});
+
+  // ── Tabela ────────────────────────────────────────────────────────────────
+  var tbody=document.getElementById('ib-tbody');
+  var KEYS=['g','a','s','f','p','n','e','v'];
+  tbody.innerHTML=munsCN.map(function(m){
+    var d=IBRCRM[String(m.i)];
+    var row2=d&&d[ANO_IB]?d[ANO_IB]:null;
+    return '<tr style="cursor:pointer" onclick="showIbrcrmDetalhe('+m.i+')">'+
+      '<td><b>'+m.n+'</b></td><td>'+m.u.substring(0,2)+'</td>'+
+      KEYS.map(function(k){
+        var v=row2?row2[k]:null;
+        return '<td>'+(v!=null?v.toFixed(3):'—')+'</td>';
+      }).join('')+
+    '</tr>';
+  }).join('');
+}
+
+function showIbrcrmDetalhe(ibge7){
+  var EIXOS_IB=[
+    {k:'g',nm:'Geral',cor:'#1B4FA8'},
+    {k:'a',nm:'Ambiental',cor:'#2C7A4B'},
+    {k:'s',nm:'Social',cor:'#8E44AD'},
+    {k:'f',nm:'Infraestrutura',cor:'#117A8B'},
+    {k:'p',nm:'Produtivo',cor:'#D35400'},
+    {k:'n',nm:'Institucional',cor:'#1A5276'},
+    {k:'e',nm:'Educação',cor:'#C0392B'},
+    {k:'v',nm:'Inovação',cor:'#B7950B'}
+  ];
+  var mSel=MUNS.find(function(m){return m.i===ibge7;});
+  if(!mSel) return;
+  var d=IBRCRM[String(ibge7)];
+  if(!d) return;
+
+  var anos=Object.keys(d).sort();
+  var detEl=document.getElementById('ib-detalhe');
+
+  // KPIs do município no último ano
+  var ANO_IB=anos[anos.length-1];
+  var kpis=EIXOS_IB.map(function(ei){
+    var v=d[ANO_IB]?d[ANO_IB][ei.k]:null;
+    return '<div style="padding:12px 16px;border-left:4px solid '+ei.cor+';background:var(--card);border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.08)">'+
+      '<div style="font-size:10px;font-weight:600;color:var(--soft);text-transform:uppercase">'+ei.nm+'</div>'+
+      '<div style="font-size:24px;font-weight:700;color:'+ei.cor+'">'+(v!=null?v.toFixed(3):'—')+'</div>'+
+      '</div>';
+  }).join('');
+
+  detEl.innerHTML=
+    '<div class="card" style="margin-top:16px">'+
+      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">'+
+        '<h2>'+mSel.n+' <span style="font-weight:400;font-size:14px;color:var(--soft)">('+mSel.u+')</span></h2>'+
+        '<button onclick="fecharIbrcrmDetalhe()" '+
+          'style="border:none;background:none;color:var(--pr);cursor:pointer;font-size:13px">✕ Fechar</button>'+
+      '</div>'+
+      '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px">'+kpis+'</div>'+
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">'+
+        '<div><h3 style="font-size:14px;margin-bottom:8px">Radar de Subíndices · '+ANO_IB+'</h3>'+
+          '<div style="height:220px"><canvas id="ib-det-radar"></canvas></div></div>'+
+        '<div><h3 style="font-size:14px;margin-bottom:8px">Evolução Histórica (2010–2023)</h3>'+
+          '<div style="height:220px"><canvas id="ib-det-evol"></canvas></div></div>'+
+      '</div>'+
+    '</div>';
+
+  // Radar do município
+  dc('ib-det-radar');
+  var radarEixos=EIXOS_IB.slice(1);
+  var radarVals=radarEixos.map(function(ei){return d[ANO_IB]?d[ANO_IB][ei.k]:null;});
+  charts['ib-det-radar']=new Chart(document.getElementById('ib-det-radar'),{type:'radar',
+    data:{labels:radarEixos.map(function(e){return e.nm;}),
+      datasets:[{label:mSel.n,data:radarVals,
+        borderColor:'#1B4FA8',backgroundColor:'rgba(27,79,168,0.12)',
+        borderWidth:2,pointRadius:3}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      scales:{r:{min:0,max:1,ticks:{display:false},grid:{color:'#e0e0e0'}}},
+      plugins:{legend:{display:false}}}});
+
+  // Evolução histórica do município
+  dc('ib-det-evol');
+  var evolDatasets=EIXOS_IB.map(function(ei){
+    return {label:ei.nm,
+      data:anos.map(function(a){return d[a]?d[a][ei.k]:null;}),
+      borderColor:ei.cor,borderWidth:ei.k==='g'?2.5:1.5,
+      pointRadius:ei.k==='g'?3:1.5,tension:0.3,fill:false,spanGaps:true,
+      borderDash:ei.k==='g'?[]:[4,3]};
+  });
+  charts['ib-det-evol']=new Chart(document.getElementById('ib-det-evol'),{type:'line',
+    data:{labels:anos,datasets:evolDatasets},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:8}}},
+      scales:{x:{grid:{display:false}},y:{min:0,max:1,grid:{color:'#e8eaed'}}}}});
+
+  detEl.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function fecharIbrcrmDetalhe(){document.getElementById('ib-detalhe').innerHTML='';}
 
 carregarDados();
 

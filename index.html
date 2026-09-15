@@ -1722,10 +1722,10 @@ function rMetodologia(main){
     '<div class="met-grid">'+
     '<div class="met-item"><b>Eixo I - Desenvolvimento Produtivo</b>'+
     '<p style="font-size:11.5px;margin:4px 0 4px">Avalia a sofisticação e a capacidade produtiva da economia local.</p>'+
-    '<ul><li><b>Complexidade Econômica</b> - índice de complexidade econômica municipal derivado da diversidade e ubiquidade dos produtos exportados (MIT/MDIC)</li>'+
+    '<ul><li><b>Complexidade Econômica</b> - índice de complexidade econômica das localidades brasileiras calculado com dados de emprego formal (DataViva)</li>'+
     '<li><b>% industrial no emprego formal</b> - parcela dos empregos formais no setor industrial (RAIS)</li>'+
     '<li><b>Salário médio no mercado formal</b> - remuneração média dos trabalhadores formais em salários mínimos (RAIS)</li>'+
-    '<li><b>Escala produtiva</b> - tamanho médio dos estabelecimentos produtivos como proxy de economias de escala (RAIS)</li>'+
+    '<li><b>Escala produtiva</b> - massa salarial municipal dividida pelo número total de estabelecimentos no município, excluindo Adm. Pública (RAIS/MTE)</li>'+
     '<li><b>Composto:</b> média aritmética dos 4 indicadores normalizados</li></ul></div>'+
     '<div class="met-item"><b>Eixo II - Difusão do Conhecimento, da Tecnologia e da Inovação</b>'+
     '<p style="font-size:11.5px;margin:4px 0 4px">Mede a densidade do ecossistema local de inovação e pesquisa científica.</p>'+
@@ -1738,8 +1738,8 @@ function rMetodologia(main){
     '<p style="font-size:11.5px;margin:4px 0 4px">Avalia as condições de infraestrutura escolar e qualidade do ensino básico.</p>'+
     '<ul><li><b>% escolas c/ esgotamento sanitário</b> - parcela das escolas com rede de esgoto (INEP/Censo Escolar)</li>'+
     '<li><b>% escolas c/ acesso à internet</b> - parcela das escolas com conexão ativa (INEP/Censo Escolar)</li>'+
-    '<li><b>Adequação da Formação Docente</b> - % de docentes com formação compatível com a disciplina que lecionam (INEP)</li>'+
-    '<li><b>IDEB</b> - Índice de Desenvolvimento da Educação Básica, anos finais do Ensino Fundamental (INEP)</li>'+
+    '<li><b>Matrículas em Educação Profissional e Tecnológica</b> - número total de matrículas em Educação Profissional e Tecnológica dividido pela população, por município (Censo da Educação Superior/INEP)</li>'+
+    '<li><b>IDEB</b> - média dos índices dos anos iniciais e finais do Ensino Fundamental (INEP)</li>'+
     '<li><b>Composto:</b> média aritmética dos 4 indicadores normalizados</li></ul></div>'+
     '<div class="met-item"><b>Eixo IV - Infraestruturas Econômica e Urbana</b>'+
     '<p style="font-size:11.5px;margin:4px 0 4px">Mede o acesso a serviços básicos de saneamento, conectividade digital e saúde ambiental.</p>'+
@@ -1760,14 +1760,14 @@ function rMetodologia(main){
     '<ul><li><b>% dirigentes c/ ensino superior</b> - parcela dos cargos de direção e chefia na administração municipal ocupados por servidores com nível superior (RAIS)</li>'+
     '<li><b>% servidores c/ ensino superior</b> - parcela dos servidores municipais com nível superior (RAIS)</li>'+
     '<li><b>Salário médio serv. públicos</b> - remuneração média dos servidores da administração pública municipal (RAIS)</li>'+
-    '<li><b>Sustentabilidade Fiscal</b> - receita própria municipal como proporção da receita total (SICONFI/STN)</li>'+
+    '<li><b>Sustentabilidade Fiscal</b> - razão entre receitas de arrecadação própria e receitas totais dos municípios (FINBRA/Siconfi)</li>'+
     '<li><b>Composto:</b> média aritmética dos 4 indicadores normalizados</li></ul></div>'+
     '<div class="met-item"><b>Eixo VII - Meio Ambiente e Sustentabilidade</b>'+
     '<p style="font-size:11.5px;margin:4px 0 4px">Mede a relação do município com o meio ambiente, combinando economia verde e pressão sobre os recursos naturais.</p>'+
     '<ul><li><b>Empregos em Reciclagem e Resíduos</b> - postos de trabalho formais em atividades de reciclagem e gestão de resíduos por mil habitantes (RAIS)</li>'+
     '<li><b>% Área Desmatada</b> - parcela do território municipal com supressão de vegetação nativa acumulada (MapBiomas) - invertido</li>'+
     '<li><b>Taxa Desmatamento (km²/ano)</b> - área desmatada anual em km² (PRODES/INPE) - invertido</li>'+
-    '<li><b>Emissões GEE Agropecuária</b> - emissões de gases de efeito estufa do setor agropecuário em tCO₂e (SEEG/MCTI) - invertido</li>'+
+    '<li><b>Emissões GEE Agropecuária e Processos Industriais</b> - emissões líquidas de gases de efeito estufa (CO₂e) da agropecuária e processos industriais, líquidas de remoções (SEEG/Observatório do Clima) - invertido</li>'+
     '<li><b>Composto:</b> média aritmética dos 4 indicadores normalizados (indicadores ambientais negativos com escala invertida)</li></ul></div>'+
     '</div></div>'+
     '<div class="card met-secao"><h3>Indicadores PNAD Contínua</h3>'+
